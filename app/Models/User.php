@@ -23,7 +23,7 @@ class User extends Authenticatable
     ];
 
     protected $attributes = [
-        'role' => "guest",
+        'role' => "visitor",
     ];
 
     /**

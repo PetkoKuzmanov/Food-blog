@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class UserController extends Controller
     public function index()
     {
         //
-        $users = User::all();
-        return view('users.index', ['users' => $users]);
+        $posts = Post::all();
+        return view('posts.index', ['posts' => $posts]);
     }
 
     /**
@@ -27,7 +27,7 @@ class UserController extends Controller
     public function create()
     {
         //
-        return view('users.create');
+        return view('posts.create');
     }
 
     /**
@@ -38,25 +38,26 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|max:30',
-            'email' => 'required|max:30', 
-            'role' => 'required|max:30',
-            'password' => 'required|max:16',
-        ]);
+        //
+        // $validatedData = $request->validate([
+        //     'name' => 'required|max:30',
+        //     'email' => 'required|max:30', 
+        //     'role' => 'required|max:30',
+        //     'password' => 'required|max:16',
+        // ]);
 
-        $user = new User;
+        // $user = new User;
 
-        $user->name = $validatedData['name'];
-        $user->email = $validatedData['email'];
-        $user->role = $validatedData['role'];
-        $user->password = $validatedData['password'];
+        // $user->name = $validatedData['name'];
+        // $user->email = $validatedData['email'];
+        // $user->role = $validatedData['role'];
+        // $user->password = $validatedData['password'];
 
-        $user->save();
+        // $user->save();
 
-        session()->flash('message', 'User was created');
+        // session()->flash('message', 'User was created');
 
-        return redirect()->route('users.index');
+        // return redirect()->route('users.index');
     }
 
     /**
@@ -68,8 +69,8 @@ class UserController extends Controller
     public function show($id)
     {
         //
-        $user = User::findOrFail($id);
-        return view('users.show', ['user' => $user]);
+        $post = Post::findOrFail($id);
+        return view('posts.show', ['post' => $post]);
     }
 
     /**

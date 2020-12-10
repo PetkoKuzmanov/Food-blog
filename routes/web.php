@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,23 +16,30 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-// Route::get('/users', function () {
-//     return view('user');
+// Route::get('/', function () {
+//     return view('welcome');
 // });
 
+Route::redirect('/', '/home');
 
-Route::get('users',[UserController::class, 'index'])->name('users.index');
+Route::get('home/users',[UserController::class, 'index'])->name('users.index');
 
 Route::get('users/create',[UserController::class, 'create'])->name('users.create');
 
 Route::post('users',[UserController::class, 'store'])->name('users.store');
 
-Route::get('users/{id}',[UserController::class, 'show'])->name('users.show');
+Route::get('home/users/{id}',[UserController::class, 'show'])->name('users.show');
+
+
+Route::get('home/posts',[PostController::class, 'index'])->name('posts.index');
+
+Route::get('posts/create',[PostController::class, 'create'])->name('posts.create');
+
+Route::post('posts',[PostController::class, 'store'])->name('posts.store');
+
+Route::get('home/posts/{id}',[PostController::class, 'show'])->name('posts.show');
+
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
