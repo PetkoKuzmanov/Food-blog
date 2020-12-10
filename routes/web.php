@@ -21,7 +21,7 @@ use App\Http\Controllers\TagController;
 //     return view('welcome');
 // });
 
-Route::redirect('/', '/home');
+Route::redirect('/', '/home/posts');
 
 //Users
 Route::get('home/users',[UserController::class, 'index'])->name('users.index');

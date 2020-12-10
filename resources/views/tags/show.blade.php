@@ -8,9 +8,9 @@
 
         <li>Posts that have this tag:</li>
             <ul>
-            @foreach ($tag->posts as $post)
-                <li><a href="{{ route('posts.show', ['id' => $post->id]) }}">{{ $post->title}}</a></li>
-            @endforeach
+                @foreach ($tag->posts as $post)
+                    <li><a href="{{ route('posts.show', ['id' => $post->id]) }}">{{ $post->title }}</a></li>
+                @endforeach
             </ul>
     </ul>
 @endsection
