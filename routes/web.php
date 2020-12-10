@@ -32,6 +32,7 @@ Route::post('users',[UserController::class, 'store'])->name('users.store');
 
 Route::get('home/users/{id}',[UserController::class, 'show'])->name('users.show');
 
+Route::get('home/users/{id}/posts',[UserController::class, 'posts'])->name('users.posts');
 
 //Posts
 Route::get('home/posts',[PostController::class, 'index'])->name('posts.index');
@@ -42,8 +43,8 @@ Route::post('posts',[PostController::class, 'store'])->name('posts.store');
 
 Route::get('home/posts/{id}',[PostController::class, 'show'])->name('posts.show');
 
-//Tags
 
+//Tags
 Route::get('home/tags',[TagController::class, 'index'])->name('tags.index');
 
 Route::get('home/tags/{id}',[TagController::class, 'show'])->name('tags.show');

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -27,7 +29,8 @@ class PostController extends Controller
     public function create()
     {
         //
-        return view('posts.create');
+        $tags = Tag::orderBy('name', 'asc')->get();
+        return view('posts.create', ['tags' => $tags]);
     }
 
     /**
@@ -39,25 +42,25 @@ class PostController extends Controller
     public function store(Request $request)
     {
         //
-        // $validatedData = $request->validate([
-        //     'name' => 'required|max:30',
-        //     'email' => 'required|max:30', 
-        //     'role' => 'required|max:30',
-        //     'password' => 'required|max:16',
-        // ]);
+        $validatedData = $request->validate([
+            'title' => 'required|max:30',
+            'content' => 'required|max:30',
+        ]);
 
-        // $user = new User;
+        $post = new Post;
+        $tag = Tag::All()->find($request->tag_id);
+        
+        $post->title = $validatedData['title'];
+        $post->content = $validatedData['content'];
+        $post->user_id = Auth::id();
+        $post->save();
 
-        // $user->name = $validatedData['name'];
-        // $user->email = $validatedData['email'];
-        // $user->role = $validatedData['role'];
-        // $user->password = $validatedData['password'];
+        $tag->posts()->attach($post);
+        // $post->tags()->attach($tag);
+        
+        session()->flash('message', 'Post was created');
 
-        // $user->save();
-
-        // session()->flash('message', 'User was created');
-
-        // return redirect()->route('users.index');
+        return redirect()->route('posts.index');
     }
 
     /**

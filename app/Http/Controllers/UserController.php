@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -17,6 +18,19 @@ class UserController extends Controller
         //
         $users = User::all();
         return view('users.index', ['users' => $users]);
+    }
+
+    /**
+     * Display a listing of the posts of the user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function posts($id)
+    {
+        //
+        $user = User::findOrFail($id);
+        $posts = $user->posts;
+        return view('users.posts', ['posts' => $posts]);
     }
 
     /**

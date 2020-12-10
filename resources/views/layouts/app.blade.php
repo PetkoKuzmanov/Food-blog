@@ -55,6 +55,10 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('users.show', ['id' => Auth::id()]) }}">
+                                        {{ __('Your Profile') }}
+                                    </a>
+                                    
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -70,6 +74,19 @@
                     </ul>
                 </div>
             </div>
+        </nav>
+
+        <nav>
+            @if ($errors->any())
+                <div>
+                    Errors:
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
         </nav>
 
         <main class="py-4">

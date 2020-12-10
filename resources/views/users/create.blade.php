@@ -13,6 +13,7 @@
             value="{{ old('role') }}"></p>
         <p>Password: <input type="text" name="password"
             value="{{ old('password') }}"></p>
+            
         <input type="submit" value="Submit">
         <a href="{{ route('users.index') }}">Cancel</a>
     </form>

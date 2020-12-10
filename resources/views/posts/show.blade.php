@@ -28,11 +28,18 @@
                 @endforeach
             </ul>
 
-        <li>Comments:</li>
-            <ul>
-                @foreach ($post->comments as $comment)
-                    <li><a href="{{ route('users.show', ['id' => $comment->user->id]) }}">{{ $comment->user->name}}</a> <br> {{ $comment->content}}</li>
-                @endforeach
-            </ul>
+        <li>Comments:
+            @if (count($post->comments) > 0) 
+            
+                <ul>
+                    @foreach ($post->comments as $comment)
+                        <li><a href="{{ route('users.show', ['id' => $comment->user->id]) }}">{{ $comment->user->name}}</a> <br> {{ $comment->content}}</li>
+                    @endforeach
+                </ul>
+        
+            @else
+                No comments
+            @endif
+        </li>
     </ul>
 @endsection
