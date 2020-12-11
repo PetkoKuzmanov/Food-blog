@@ -68,7 +68,7 @@ class PostController extends Controller
 
         //Add the relationships
         $post->images()->save($image);
-        $tag->posts()->attach($post);
+        $tag->posts()->attach($post); 
         // $post->tags()->attach($tag);
         
     
@@ -124,5 +124,9 @@ class PostController extends Controller
     public function destroy($id)
     {
         //
+        $post = Post::findOrFail($id);
+        $post->delete();
+
+        return redirect()->route('posts.index')->with('message', 'Post was deleted');
     }
 }

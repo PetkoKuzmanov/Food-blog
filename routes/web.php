@@ -43,6 +43,8 @@ Route::post('posts',[PostController::class, 'store'])->name('posts.store');
 
 Route::get('home/posts/{id}',[PostController::class, 'show'])->name('posts.show');
 
+Route::delete('home/posts/{id}',[PostController::class, 'destroy'])->name('posts.destroy');
+
 
 //Tags
 Route::get('home/tags',[TagController::class, 'index'])->name('tags.index');

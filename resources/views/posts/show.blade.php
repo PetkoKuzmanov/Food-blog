@@ -41,5 +41,12 @@
                 No comments
             @endif
         </li>
+
+        <form method="POST"
+            action="{{ route('posts.destroy', ['id' => $post->id]) }}">
+            @csrf
+            @method('DELETE')
+            <button type="submit">DELETE</button>
+        </form>
     </ul>
 @endsection
