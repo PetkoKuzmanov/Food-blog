@@ -50,6 +50,12 @@ Route::get('home/tags',[TagController::class, 'index'])->name('tags.index');
 Route::get('home/tags/{id}',[TagController::class, 'show'])->name('tags.show');
 
 
+//Images
+
+Route::get('image-upload', [ ImageUploadController::class, 'imageUpload' ])->name('image.imageUpload');
+
+Route::post('image-upload', [ ImageUploadController::class, 'imageUploadPost' ])->name('image.upload.post');
+
 //Authentication
 Auth::routes();
 

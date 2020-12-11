@@ -6,7 +6,7 @@
     <ul>
         <li>Title: {{ $post->title }}</li>
         <li>Content: {{ $post->content }}</li>
-        <li>Author: <a href="{{ route('users.show', ['id' => $post->user->id]) }}">{{ $post->user->name}}</a></li>
+        <li>Posted by: <a href="{{ route('users.show', ['id' => $post->user->id]) }}">{{ $post->user->name}}</a></li>
         <li>Tags:</li>
             <ul>
                 @foreach ($post->tags as $tag)
@@ -17,7 +17,7 @@
         <li>Images:</li>
             <ul>
                 @foreach ($post->images as $image)
-                    <li>{{ $image->url}}</li>
+                    <img src="{{ asset('/images/'.$image->url) }}">
                 @endforeach
             </ul>
 
@@ -33,7 +33,7 @@
             
                 <ul>
                     @foreach ($post->comments as $comment)
-                        <li><a href="{{ route('users.show', ['id' => $comment->user->id]) }}">{{ $comment->user->name}}</a> <br> {{ $comment->content}}</li>
+                        <li>{{ $comment->content}} <br> Posted by: <a href="{{ route('users.show', ['id' => $comment->user->id]) }}">{{ $comment->user->name}}</a></li>
                     @endforeach
                 </ul>
         

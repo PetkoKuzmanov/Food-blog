@@ -3,7 +3,7 @@
 @section('title', "Create Post")
 
 @section('content')
-    <form method="POST" action="{{ route('posts.store') }}">
+    <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data" action="/details">
         @csrf
         <p>Title: <input type="text" name="title" 
             value="{{ old('title') }}"></p>
@@ -25,6 +25,11 @@
             </button>
         </p>
 
+        <p>Image: 
+            <div class="col-md-6">
+                <input type="file" name="image" class="form-control" multiple>
+            </div>
+        </p>
         
         <input type="submit" value="Submit">
         <a href="{{ route('posts.index') }}">Cancel</a>
