@@ -26,13 +26,9 @@ Route::redirect('/', '/home/posts');
 //Users
 Route::get('home/users',[UserController::class, 'index'])->name('users.index');
 
-Route::get('users/create',[UserController::class, 'create'])->name('users.create');
+Route::get('home/users/{user}',[UserController::class, 'show'])->name('users.show');
 
-Route::post('users',[UserController::class, 'store'])->name('users.store');
-
-Route::get('home/users/{id}',[UserController::class, 'show'])->name('users.show');
-
-Route::get('home/users/{id}/posts',[UserController::class, 'posts'])->name('users.posts');
+Route::get('home/users/{user}/posts',[UserController::class, 'posts'])->name('users.posts');
 
 //Posts
 Route::get('home/posts',[PostController::class, 'index'])->name('posts.index');
@@ -41,15 +37,15 @@ Route::get('posts/create',[PostController::class, 'create'])->name('posts.create
 
 Route::post('posts',[PostController::class, 'store'])->name('posts.store');
 
-Route::get('home/posts/{id}',[PostController::class, 'show'])->name('posts.show');
+Route::get('home/posts/{post}',[PostController::class, 'show'])->name('posts.show');
 
-Route::delete('home/posts/{id}',[PostController::class, 'destroy'])->name('posts.destroy');
+Route::delete('home/posts/{post}',[PostController::class, 'destroy'])->name('posts.destroy');
 
 
 //Tags
 Route::get('home/tags',[TagController::class, 'index'])->name('tags.index');
 
-Route::get('home/tags/{id}',[TagController::class, 'show'])->name('tags.show');
+Route::get('home/tags/{tag}',[TagController::class, 'show'])->name('tags.show');
 
 
 //Images

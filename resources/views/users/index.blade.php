@@ -11,7 +11,7 @@
     
     <ul>
         @foreach ($users as $user)
-            <li><a href="{{ route('users.show', ['id' => $user->id]) }}">{{ $user->name }}</a></li>
+            <li><a href="{{ route('users.show', ['user' => $user->id]) }}">{{ $user->name }}</a></li>
         @endforeach
     </ul>
     <a href=" {{ route('users.create') }}">Create Users</a>

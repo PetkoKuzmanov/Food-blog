@@ -6,11 +6,11 @@
     <ul>
         <li>Title: {{ $post->title }}</li>
         <li>Content: {{ $post->content }}</li>
-        <li>Posted by: <a href="{{ route('users.show', ['id' => $post->user->id]) }}">{{ $post->user->name}}</a></li>
+        <li>Posted by: <a href="{{ route('users.show', ['user' => $post->user->id]) }}">{{ $post->user->name}}</a></li>
         <li>Tags:</li>
             <ul>
                 @foreach ($post->tags as $tag)
-                    <li><a href="{{ route('tags.show', ['id' => $tag->id]) }}">{{ $tag->name}}</a></li>
+                    <li><a href="{{ route('tags.show', ['tag' => $tag->id]) }}">{{ $tag->name}}</a></li>
                 @endforeach
             </ul>
 
@@ -33,7 +33,7 @@
             
                 <ul>
                     @foreach ($post->comments as $comment)
-                        <li>{{ $comment->content}} <br> Posted by: <a href="{{ route('users.show', ['id' => $comment->user->id]) }}">{{ $comment->user->name}}</a></li>
+                        <li>{{ $comment->content}} <br> Posted by: <a href="{{ route('users.show', ['user' => $comment->user->id]) }}">{{ $comment->user->name}}</a></li>
                     @endforeach
                 </ul>
         
@@ -43,7 +43,7 @@
         </li>
 
         <form method="POST"
-            action="{{ route('posts.destroy', ['id' => $post->id]) }}">
+            action="{{ route('posts.destroy', ['post' => $post->id]) }}">
             @csrf
             @method('DELETE')
             <button type="submit">DELETE</button>

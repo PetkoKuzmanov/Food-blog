@@ -12,7 +12,7 @@
                 @if (count($user->posts) > 0) 
                 <ul>
                     @foreach ($user->posts as $post)
-                        <li><a href="{{ route('posts.show', ['id' => $post->id]) }}">{{ $post->title }}</a></li>
+                        <li><a href="{{ route('posts.show', ['post' => $post->id]) }}">{{ $post->title }}</a></li>
                     @endforeach
                 </ul>
             @else

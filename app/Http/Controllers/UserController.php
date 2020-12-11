@@ -25,10 +25,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function posts($id)
+    public function posts(User $user)
     {
         //
-        $user = User::findOrFail($id);
         $posts = $user->posts;
         return view('users.posts', ['posts' => $posts]);
     }
@@ -41,7 +40,6 @@ class UserController extends Controller
     public function create()
     {
         //
-        return view('users.create');
     }
 
     /**
@@ -52,25 +50,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|max:30',
-            'email' => 'required|max:30', 
-            'role' => 'required|max:30',
-            'password' => 'required|max:16',
-        ]);
-
-        $user = new User;
-
-        $user->name = $validatedData['name'];
-        $user->email = $validatedData['email'];
-        $user->role = $validatedData['role'];
-        $user->password = $validatedData['password'];
-
-        $user->save();
-
-        session()->flash('message', 'User was created');
-
-        return redirect()->route('users.index');
+        
     }
 
     /**
@@ -79,10 +59,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
         //
-        $user = User::findOrFail($id);
         return view('users.show', ['user' => $user]);
     }
 
