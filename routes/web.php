@@ -21,40 +21,34 @@ use App\Http\Controllers\TagController;
 //     return view('welcome');
 // });
 
-Route::redirect('/', '/home/posts');
+Route::redirect('/', '/home/posts')->middleware('auth');
 
 //Users
-Route::get('home/users',[UserController::class, 'index'])->name('users.index');
+Route::get('home/users',[UserController::class, 'index'])->name('users.index')->middleware('auth');
 
-Route::get('home/users/{user}',[UserController::class, 'show'])->name('users.show');
+Route::get('home/users/{user}',[UserController::class, 'show'])->name('users.show')->middleware('auth');
 
-Route::get('home/users/{user}/posts',[UserController::class, 'posts'])->name('users.posts');
+Route::get('home/users/{user}/posts',[UserController::class, 'posts'])->name('users.posts')->middleware('auth');
 
 //Posts
-Route::get('home/posts',[PostController::class, 'index'])->name('posts.index');
+Route::get('home/posts',[PostController::class, 'index'])->name('posts.index')->middleware('auth');
 
-Route::get('posts/create',[PostController::class, 'create'])->name('posts.create');
+Route::get('posts/create',[PostController::class, 'create'])->name('posts.create')->middleware('auth');
 
-Route::post('posts',[PostController::class, 'store'])->name('posts.store');
+Route::post('posts',[PostController::class, 'store'])->name('posts.store')->middleware('auth');
 
-Route::get('home/posts/{post}',[PostController::class, 'show'])->name('posts.show');
+Route::get('home/posts/{post}',[PostController::class, 'show'])->name('posts.show')->middleware('auth');
 
-Route::delete('home/posts/{post}',[PostController::class, 'destroy'])->name('posts.destroy');
+Route::delete('home/posts/{post}',[PostController::class, 'destroy'])->name('posts.destroy')->middleware('auth');
 
 
 //Tags
-Route::get('home/tags',[TagController::class, 'index'])->name('tags.index');
+Route::get('home/tags',[TagController::class, 'index'])->name('tags.index')->middleware('auth');
 
-Route::get('home/tags/{tag}',[TagController::class, 'show'])->name('tags.show');
+Route::get('home/tags/{tag}',[TagController::class, 'show'])->name('tags.show')->middleware('auth');
 
-
-//Images
-
-Route::get('image-upload', [ ImageUploadController::class, 'imageUpload' ])->name('image.imageUpload');
-
-Route::post('image-upload', [ ImageUploadController::class, 'imageUploadPost' ])->name('image.upload.post');
 
 //Authentication
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('auth');
