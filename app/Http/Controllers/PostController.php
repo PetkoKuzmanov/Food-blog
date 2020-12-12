@@ -43,39 +43,37 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        
-        // dd($request);
         $validatedData = $request->validate([
             'title' => 'required|max:30',
             'content' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'tags' => 'required',
+            'images' => 'required',
         ]);
 
-        //Create the post and find the tag
+        //Create the post
         $post = new Post;
-        $tag = Tag::All()->find($request->tag_id);
-
-        //Create the image
-        $image = new Image;
-        $imageName = time().'.'.$request->image->extension(); 
-        $image->url = $imageName;
-
-        //Add the details for the post
         $post->title = $validatedData['title'];
         $post->content = $validatedData['content'];
         $post->user_id = Auth::id();
         $post->save();
-
-        //Add the relationships
-        $post->images()->save($image);
-        $tag->posts()->attach($post); 
-        // $post->tags()->attach($tag);
         
-    
-        $request->image->move(public_path('images'), $imageName);
+        //Add the images
+        foreach ($request->file('images') as $index=>$file) {
+            $image = new Image;
+            $imageName = time().$index.'.'.$file->extension(); 
+            $image->url = $imageName;
+
+            $post->images()->save($image);
+            $file->move(public_path('images'), $imageName);
+        }
+
+        //Add the tags
+        foreach ($request->tags as $tag_id) {
+            $tag = Tag::All()->find($tag_id);
+            $tag->posts()->attach($post);
+        }
         
         session()->flash('message', 'Post was created');
-
         return redirect()->route('posts.index');
     }
 
