@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Comment;
 use App\Models\Post;
+use App\Models\Comment;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -23,7 +23,8 @@ class CommentController extends Controller
         //     }
         // }
 
-        $comments = Post::all()->find($request->post_id)->comments;
+        $comments = Post::all()->find(14)->comments;
+        // $comments = Comment::all();
 
         return $comments;
     }
@@ -31,14 +32,14 @@ class CommentController extends Controller
     public function apiStore(Request $request) {
         $comment = new Comment;
 
-        dd($request);
         $validatedData = $request->validate([
             'content' => 'required|max:100',
             'post_id' => 'required',
+            'user_id' => 'required',
         ]);
 
         $comment->content = $validatedData['content'];
-        $comment->user_id = Auth::id();
+        $comment->user_id = $validatedData['user_id'];
         $comment->post_id = $validatedData['post_id'];
         $comment->save();
 

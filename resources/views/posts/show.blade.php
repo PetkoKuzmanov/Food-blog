@@ -32,9 +32,9 @@
         <li>Comments:
             @if (count($post->comments) > 0)
             <ul>
-                @foreach ($post->comments as $comment)
-                <li>{{ $comment->content }} <br> Posted by: <a href="{{ route('users.show', ['user' => $comment->user->id]) }}">{{ $comment->user->name}}</a></li>
-                @endforeach
+
+                <li v-for="comment in comments">@{{ comment.content }} <br> Posted by: <a href="{{ route('users.show', 6  ) }}">@{{ comment.user_id }}</a></li>
+
             </ul>
             @else
             No comments
@@ -45,8 +45,11 @@
         <input type="text" id="input" placeholder="Add a comment..." v-model="newCommentContent">
         <button @click="createComment">Comment</button>
     </div>
-    <div id="content">
+    <div id="post_id" hidden>
         {{ $post->id }}
+    </div>
+    <div id="user_id" hidden>
+        {{ Auth::id() }}
     </div>
 
     <form method="POST" action="{{ route('posts.destroy', ['post' => $post->id]) }}">
@@ -61,14 +64,13 @@
         el: '#comments',
         data: {
             comments: [],
-            comment: [],
         },
         mounted() {
             axios.get("{{ route ('api.comments.index') }}", {
                     // post_id: document.getElementById('content').innerHTML
-                    post_id: 7,
                 })
                 .then(response => {
+                    console.log(response);
                     this.comments = response.data;
                 })
                 .catch(response => {
@@ -79,16 +81,16 @@
             createComment: function() {
                 axios.post("{{ route ('api.comments.store') }}", {
                         content: this.newCommentContent,
-                        // post_id: document.getElementById('content').innerHTML,
+                        post_id: document.getElementById('post_id').innerHTML,
+                        user_id: document.getElementById('user_id').innerHTML,
                     })
                     .then(response => {
-                        this.comment = [this.newCommentContent];
-                        this.comments.push(this.comment);
+                        this.comments.push(response.data);
 
                         this.newCommentContent = '';
                     })
                     .catch(response => {
-                        console.log(document.getElementById('content').innerHTML);
+                        console.log(response);
                     })
             }
         }
