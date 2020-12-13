@@ -50,6 +50,7 @@
         {{ Auth::id() }}
     </div>
 
+    @if (Auth::user() && Auth::user()->id == $post->user->id)
     <form method="POST" action="{{ route('posts.edit', ['post' => $post->id]) }}">
         @csrf
         @method('PUT')
@@ -61,6 +62,7 @@
         @method('DELETE')
         <button type="submit">DELETE</button>
     </form>
+    @endif
 </ul>
 
 <script>

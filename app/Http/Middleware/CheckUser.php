@@ -3,11 +3,11 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-
-class CheckChef
+class CheckUser
 {
     /**
      * Handle an incoming request.
@@ -24,7 +24,7 @@ class CheckChef
         if ($role == "chef") {
             return $next($request);
         } else {
-            return response("Only chefs are authorised to do this");
+            return response("You can't edit or delete other chefs' posts");
         }
     }
 }

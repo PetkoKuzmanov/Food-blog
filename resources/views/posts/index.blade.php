@@ -14,5 +14,4 @@
             <li><a href="{{ route('posts.show', ['post' => $post->id]) }}">{{ $post->title}}</a></li>
         @endforeach
     </ul>
-    <a href=" {{ route('posts.create') }}">Create a post</a>
 @endsection
