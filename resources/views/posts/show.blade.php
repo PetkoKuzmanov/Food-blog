@@ -24,7 +24,7 @@
     <li>Ingredients:</li>
     <ul>
         @foreach ($post->ingredients as $ingredient)
-        <li>{{ $ingredient->name}} {{ $ingredient->amount}}{{ $ingredient->measurement}}</li>
+        <li>{{ $ingredient->name }} {{ $ingredient->amount }}{{ $ingredient->measurement }}</li>
         @endforeach
     </ul>
 
@@ -32,7 +32,7 @@
         <li>Comments:
             @if (count($post->comments) > 0)
             <ul>
-                <li v-for="comment in comments">@{{ comment.content }} <br> Posted by: <a href="{{ route('users.show', 6  ) }}">@{{ comment.user_id}}</a></li>
+                <li v-for="comment in comments">@{{ comment.content }} <br> Posted by: <a href="{{ route('users.show', 6  ) }}">@{{ comment.user_id }}</a></li>
             </ul>
             @else
             No comments
@@ -72,7 +72,7 @@
             comments: [],
         },
         mounted() {
-            axios.get("{{ route ('api.comments.index') }}")
+            axios.get("{{ route ('api.comments.index') }}?id={{ $post->id }}")
                 .then(response => {
                     this.comments = response.data;
                 })

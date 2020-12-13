@@ -12,9 +12,9 @@ class CommentController extends Controller
 {
     public function apiIndex(Request $request) {
 
-        $comments = Post::all()->find(14)->comments;
-        // $comments = Comment::all();
+        $comments = Post::all()->find($request->id)->comments;
 
+        // $comments = Comment::all()->find($request->id)->with('user');
         return $comments;
     }
 

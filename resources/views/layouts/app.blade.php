@@ -32,6 +32,9 @@
                 <a class="navbar-brand" href="{{ route('users.chefs') }}">
                     {{ config('Chefs', 'Chefs') }}
                 </a>
+                <a class="navbar-brand" href="{{ route('tags.index') }}">
+                    {{ config('Tags', 'Tags') }}
+                </a>
                 @if (Auth::user() && Auth::user()->role == 'visitor')
                     <a class="navbar-brand" href="{{ route('posts.create') }}">
                         {{ config('Create a post', 'Create a post') }}
@@ -67,7 +70,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('users.show', ['user' => Auth::id()]) }}">
-                                        {{ __('Your Profile') }}
+                                        {{ __('My Profile') }}
                                     </a>
                                     
                                     <a class="dropdown-item" href="{{ route('logout') }}"

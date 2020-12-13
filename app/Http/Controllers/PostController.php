@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Tag;
+use App\Models\User;
 use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,6 +21,7 @@ class PostController extends Controller
     {
         //
         $posts = Post::paginate(10);
+        
         return view('posts.index', ['posts' => $posts]);
     }
 
@@ -86,7 +88,8 @@ class PostController extends Controller
     public function show(Post $post)
     {
         //
-        return view('posts.show', ['post' => $post]);
+        $users = User::all();
+        return view('posts.show', ['post' => $post, 'users' => $users]);
     }
 
     /**
