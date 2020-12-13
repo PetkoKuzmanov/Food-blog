@@ -32,7 +32,7 @@
         <li>Comments:
             @if (count($post->comments) > 0)
             <ul>
-                <li v-for="comment in comments">@{{ comment.content }} <br> Posted by: <a href="{{ route('users.show', 6  ) }}">@{{ comment.user_id }}</a></li>
+                <li v-for="comment in comments">@{{ comment.content }} <br> Posted by: <a href="{{ route('users.show', 6  ) }}">@{{ comment.user_id}}</a></li>
             </ul>
             @else
             No comments
@@ -70,7 +70,6 @@
         el: '#comments',
         data: {
             comments: [],
-            // post_id = document.getElementById('content').innerHTML
         },
         mounted() {
             axios.get("{{ route ('api.comments.index') }}")

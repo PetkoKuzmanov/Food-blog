@@ -32,7 +32,7 @@
                 <a class="navbar-brand" href="{{ route('users.chefs') }}">
                     {{ config('Chefs', 'Chefs') }}
                 </a>
-                @if (Auth::user() && Auth::user()->role == 'chef')
+                @if (Auth::user() && Auth::user()->role == 'visitor')
                     <a class="navbar-brand" href="{{ route('posts.create') }}">
                         {{ config('Create a post', 'Create a post') }}
                     </a>
@@ -100,11 +100,11 @@
             @endif
         </nav>
 
-        <nav class="py-4">
-            @yield('title')
+        <nav class="d-flex justify-content-center">
+            <h1>@yield('title')<h1>
         </nav>
 
-        <main class="py-4">
+        <main class="d-flex justify-content-center">
             @yield('content')
         </main>
     </div>

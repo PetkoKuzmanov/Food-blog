@@ -59,4 +59,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Models\Post');
     }
+
+    public function profilePicture()
+    {
+        return $this->hasOne('App\Models\ProfilePicture');
+    }
 }

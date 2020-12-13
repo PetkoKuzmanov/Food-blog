@@ -3,19 +3,21 @@
 @section('title', "Posts")
 
 @section('content')
-<div class="container mt-1">
-    <p>The posts of the website:</p>
+<div class="d-flex justify-content-center">
+    <div>
+        <h1 class="display-1">Recipies</h1>
+    </div>
+    <div>
+        @if (session('message'))
+        <p><b>{{ session('message')}}</b></p>
+        @endif
 
-    @if (session('message'))
-    <p><b>{{ session('message')}}</b></p>
-    @endif
-
-    <ul>
-        @foreach ($posts as $post)
-        <li><a href="{{ route('posts.show', ['post' => $post->id]) }}">{{ $post->title}}</a></li>
-        @endforeach
-    </ul>
-
+        <ul class="list-inline">
+            @foreach ($posts as $post)
+            <li><a href="{{ route('posts.show', ['post' => $post->id]) }}">{{ $post->title}}</a></li>
+            @endforeach
+        </ul>
+    </div>
     <div class="d-flex justify-content-center">
         {{ $posts->links() }}
     </div>
