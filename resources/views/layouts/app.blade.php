@@ -32,6 +32,11 @@
                 <a class="navbar-brand" href="{{ route('users.chefs') }}">
                     {{ config('Chefs', 'Chefs') }}
                 </a>
+                @if (Auth::user() && Auth::user()->role == 'chef')
+                    <a class="navbar-brand" href="{{ route('posts.create') }}">
+                        {{ config('Create a post', 'Create a post') }}
+                    </a>
+                @endif
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>

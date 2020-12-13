@@ -21,6 +21,7 @@ use App\Http\Controllers\TagController;
 //     return view('welcome');
 // });
 
+
 Route::redirect('/', '/home/posts')->middleware('auth');
 
 //Users
@@ -35,9 +36,9 @@ Route::get('home/users/{user}/posts',[UserController::class, 'posts'])->name('us
 //Posts
 Route::get('home/posts',[PostController::class, 'index'])->name('posts.index')->middleware('auth');
 
-Route::get('posts/create',[PostController::class, 'create'])->name('posts.create')->middleware('auth');
+Route::get('posts/create',[PostController::class, 'create'])->name('posts.create')->middleware('chef');
 
-Route::post('posts',[PostController::class, 'store'])->name('posts.store')->middleware('auth');
+Route::post('posts',[PostController::class, 'store'])->name('posts.store')->middleware('chef');
 
 Route::put('home/posts/edit/{post}',[PostController::class, 'edit'])->name('posts.edit')->middleware('auth');
 
