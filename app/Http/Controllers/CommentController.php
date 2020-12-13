@@ -12,17 +12,6 @@ class CommentController extends Controller
 {
     public function apiIndex(Request $request) {
 
-        // dd($request);
-
-        // $comments = [];
-        // $allComments = Comment::all();
-        
-        // foreach ($allComments as $comment) {
-        //     if ($comment->post->post_id === $request->post_id) {
-        //         $comments[] = $comment;
-        //     }
-        // }
-
         $comments = Post::all()->find(14)->comments;
         // $comments = Comment::all();
 

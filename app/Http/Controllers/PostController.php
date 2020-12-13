@@ -95,9 +95,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
         //
+        $tags = Tag::orderBy('name', 'asc')->get();
+        return view('posts.edit', ['post' => $post], ['tags' => $tags]);
     }
 
     /**
@@ -110,6 +112,39 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         //
+        dd($id);
+        $validatedData = $request->validate([
+            'title' => 'required|max:30',
+            'content' => 'required',
+            'tags' => 'required',
+            'images' => 'required',
+        ]);
+
+        //Create the post
+        $post = Post::all()->find($id);
+        $post->title = $validatedData['title'];
+        $post->content = $validatedData['content'];
+        $post->user_id = Auth::id();
+        $post->save();
+        
+        //Add the images
+        foreach ($request->file('images') as $index=>$file) {
+            $image = new Image;
+            $imageName = time().$index.'.'.$file->extension(); 
+            $image->url = $imageName;
+
+            $post->images()->save($image);
+            $file->move(public_path('images'), $imageName);
+        }
+
+        //Add the tags
+        foreach ($request->tags as $tag_id) {
+            $tag = Tag::All()->find($tag_id);
+            $tag->posts()->attach($post);
+        }
+        
+        session()->flash('message', 'Post was updated');
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -122,7 +157,6 @@ class PostController extends Controller
     {
         //
         $post->delete();
-
         return redirect()->route('posts.index')->with('message', 'Post was deleted');
     }
 }

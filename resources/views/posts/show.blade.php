@@ -17,7 +17,7 @@
     <li>Images:</li>
     <ul>
         @foreach ($post->images as $image)
-        <img src="{{ asset('/images/'.$image->url) }}">
+        <img src="{{ asset('/images/'.$image->url) }}" width="200" height="200">
         @endforeach
     </ul>
 
@@ -32,9 +32,7 @@
         <li>Comments:
             @if (count($post->comments) > 0)
             <ul>
-
                 <li v-for="comment in comments">@{{ comment.content }} <br> Posted by: <a href="{{ route('users.show', 6  ) }}">@{{ comment.user_id }}</a></li>
-
             </ul>
             @else
             No comments
@@ -52,6 +50,12 @@
         {{ Auth::id() }}
     </div>
 
+    <form method="POST" action="{{ route('posts.edit', ['post' => $post->id]) }}">
+        @csrf
+        @method('PUT')
+        <button class="btn-default" type="submit">EDIT</button>
+    </form>
+
     <form method="POST" action="{{ route('posts.destroy', ['post' => $post->id]) }}">
         @csrf
         @method('DELETE')
@@ -64,13 +68,11 @@
         el: '#comments',
         data: {
             comments: [],
+            // post_id = document.getElementById('content').innerHTML
         },
         mounted() {
-            axios.get("{{ route ('api.comments.index') }}", {
-                    // post_id: document.getElementById('content').innerHTML
-                })
+            axios.get("{{ route ('api.comments.index') }}")
                 .then(response => {
-                    console.log(response);
                     this.comments = response.data;
                 })
                 .catch(response => {

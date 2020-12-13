@@ -26,6 +26,8 @@ Route::redirect('/', '/home/posts')->middleware('auth');
 //Users
 Route::get('home/users',[UserController::class, 'index'])->name('users.index')->middleware('auth');
 
+Route::get('home/users/chefs',[UserController::class, 'chefs'])->name('users.chefs')->middleware('auth');
+
 Route::get('home/users/{user}',[UserController::class, 'show'])->name('users.show')->middleware('auth');
 
 Route::get('home/users/{user}/posts',[UserController::class, 'posts'])->name('users.posts')->middleware('auth');
@@ -36,6 +38,10 @@ Route::get('home/posts',[PostController::class, 'index'])->name('posts.index')->
 Route::get('posts/create',[PostController::class, 'create'])->name('posts.create')->middleware('auth');
 
 Route::post('posts',[PostController::class, 'store'])->name('posts.store')->middleware('auth');
+
+Route::put('home/posts/edit/{post}',[PostController::class, 'edit'])->name('posts.edit')->middleware('auth');
+
+Route::put('home/posts/update/{id}',[PostController::class, 'update'])->name('posts.update')->middleware('auth');
 
 Route::get('home/posts/{post}',[PostController::class, 'show'])->name('posts.show')->middleware('auth');
 

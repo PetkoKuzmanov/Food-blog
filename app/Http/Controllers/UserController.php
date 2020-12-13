@@ -20,6 +20,20 @@ class UserController extends Controller
         return view('users.index', ['users' => $users]);
     }
 
+    public function chefs()
+    {
+        //
+        $users = User::all();
+        $chefs = [];
+
+        foreach ($users as $user) {
+            if ($user->role == "chef") {
+                $chefs[] = $user;
+            }
+        }
+        return view('users.index', ['users' => $chefs]);
+    }
+
     /**
      * Display a listing of the posts of the user
      *
