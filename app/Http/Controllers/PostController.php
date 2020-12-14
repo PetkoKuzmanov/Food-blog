@@ -130,7 +130,6 @@ class PostController extends Controller
         $post->save();
         
         //Delete the old images
-        // dd($post->images()->get());
         foreach ($post->images()->get() as $image) {
             $oldProfilePictureName = $image->url;
             File::delete('images/'.$oldProfilePictureName);
@@ -168,6 +167,10 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
+        foreach ($post->images()->get() as $image) {
+            $oldProfilePictureName = $image->url;
+            File::delete('images/'.$oldProfilePictureName);
+        }
         $post->delete();
         return redirect()->route('posts.index')->with('message', 'Post was deleted');
     }
