@@ -114,10 +114,12 @@ class UserController extends Controller
 
         $file = $request->file('profilePicture');
 
-        //Delete the old profile picture
-        $oldProfilePictureName = $user->profilePicture()->getResults()->url;
-        File::delete('profilePictures/'.$oldProfilePictureName);
-        $user->profilePicture()->delete();
+        //Delete the old profile picture if it exists
+        if ($user->profilePicture()->exists()) {
+            $oldProfilePictureName = $user->profilePicture()->getResults()->url;
+            File::delete('profilePictures/'.$oldProfilePictureName);
+            $user->profilePicture()->delete();
+        }
 
         //Add the new profile picture
         $imageName = time().'.'.$file->extension();

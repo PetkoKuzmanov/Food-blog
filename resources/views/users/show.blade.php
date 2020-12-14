@@ -3,8 +3,14 @@
 @section('title', "User Details")
 
 @section('content')
+
 <ul>
+    @if ($user->profilePicture()->exists())
     <img src="{{ asset('/profilePictures/'.$user->profilePicture->url) }}" width="200" height="200">
+    @else
+    <img src="{{ asset('/profilePictures/defaultProfilePicture.jpg') }}" width="200" height="200">
+    @endif
+
     <li>Name: {{ $user->name }}</li>
     <li>Email: {{ $user->email }}</li>
     <li>Role: {{ $user->role }}</li>

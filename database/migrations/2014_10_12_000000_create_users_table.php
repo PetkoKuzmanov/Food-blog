@@ -21,6 +21,10 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('role');
 
+            // $table->unsignedBigInteger('profilePicture_id');
+            // $table->foreign('profilePicture_id')->references('id')->on('profilePictures')
+            //     ->onDelete('cascade')->onUpdate('cascade');
+
             $table->rememberToken();
             $table->timestamps();
         });

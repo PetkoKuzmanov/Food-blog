@@ -7,7 +7,11 @@
 <form method="POST" action="{{ route('users.update', ['user' => $user]) }}" enctype="multipart/form-data" action="/details">
     @csrf
     @method('PUT')
-    <img src="{{ asset('/profilePictures/'.$user->profilePicture) }}" width="200" height="200">
+    @if ($user->profilePicture()->exists())
+    <img src="{{ asset('/profilePictures/'.$user->profilePicture->url) }}" width="200" height="200">
+    @else
+    <img src="{{ asset('/profilePictures/defaultProfilePicture.jpg') }}" width="200" height="200">
+    @endif
 
     <div class="input-group mb-3">
         <input type="file" name="profilePicture" class="form-control" aria-describedby="inputGroupFileAddon03">
