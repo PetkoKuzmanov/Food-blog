@@ -31,9 +31,13 @@
     <div id="comments">
         <li>Comments:
             @if (count($post->comments) > 0)
-            <ul>
-                <li v-for="comment in comments">@{{ comment.content }} <br> Posted by: <a href="{{ route('users.show' , 4) }}">@{{ comment.user.name }}</a></li>
-            </ul>
+            <p v-for="comment in comments">
+                @{{ comment.content }}
+                <br>
+                Posted by: <a href="{{ route('users.show' , 4) }}">@{{ comment.user.name }}</a>
+                
+            </p>
+
             @else
             No comments
             @endif
@@ -92,12 +96,12 @@
             },
             getComments: function() {
                 axios.get("{{ route ('api.comments.index') }}?id={{ $post->id }}")
-                .then(response => {
-                    this.comments = response.data;
-                })
-                .catch(response => {
-                    console.log(response);
-                })
+                    .then(response => {
+                        this.comments = response.data;
+                    })
+                    .catch(response => {
+                        console.log(response);
+                    })
             }
         }
     })

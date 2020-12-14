@@ -45,7 +45,7 @@ Route::post('posts',[PostController::class, 'store'])->name('posts.store')->midd
 
 Route::put('home/posts/edit/{post}',[PostController::class, 'edit'])->name('posts.edit')->middleware('auth');
 
-Route::put('home/posts/update/{id}',[PostController::class, 'update'])->name('posts.update')->middleware('auth');
+Route::put('home/posts/update/{post}',[PostController::class, 'update'])->name('posts.update')->middleware('auth');
 
 Route::get('home/posts/{post}',[PostController::class, 'show'])->name('posts.show')->middleware('auth');
 

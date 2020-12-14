@@ -3,7 +3,7 @@
 @section('title', "Edit Post")
 
 @section('content')
-<form method="POST" action="{{ route('posts.update', [ 'id' => $post->id]) }}" enctype="multipart/form-data" action="/details">
+<form method="POST" action="{{ route('posts.update', [ 'post' => $post]) }}" enctype="multipart/form-data" action="/details">
     @csrf
     @method('PUT')
     <p>Title: <input type="text" name="title" value="{{ $post->title }}"></p>

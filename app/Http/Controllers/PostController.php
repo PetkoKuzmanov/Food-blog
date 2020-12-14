@@ -112,10 +112,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
         //
-        dd($id);
         $validatedData = $request->validate([
             'title' => 'required|max:30',
             'content' => 'required',
@@ -124,13 +123,14 @@ class PostController extends Controller
         ]);
 
         //Create the post
-        $post = Post::all()->find($id);
         $post->title = $validatedData['title'];
         $post->content = $validatedData['content'];
         $post->user_id = Auth::id();
         $post->save();
         
-        //Add the images
+        //Change the images
+        $post->images()->delete();        
+
         foreach ($request->file('images') as $index=>$file) {
             $image = new Image;
             $imageName = time().$index.'.'.$file->extension(); 
@@ -140,14 +140,15 @@ class PostController extends Controller
             $file->move(public_path('images'), $imageName);
         }
 
-        //Add the tags
+        //Change the tags
+        $post->tags()->detach();
         foreach ($request->tags as $tag_id) {
             $tag = Tag::All()->find($tag_id);
             $tag->posts()->attach($post);
         }
         
         session()->flash('message', 'Post was updated');
-        return redirect()->route('posts.index');
+        return redirect()->route('posts.show', ['post' => $post]);
     }
 
     /**
