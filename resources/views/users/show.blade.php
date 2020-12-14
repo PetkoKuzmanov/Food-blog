@@ -21,7 +21,7 @@
         @endif
     </li>
 
-    @if (Auth::user() && Auth::user()->id == $post->user->id)
+    @if (Auth::user() && Auth::user()->id == $user->id)
     <form method="POST" action="{{ route('users.edit', ['user' => $user]) }}">
         @csrf
         @method('PUT')

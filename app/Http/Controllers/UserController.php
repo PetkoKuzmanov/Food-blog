@@ -6,6 +6,8 @@ use App\Models\User;
 use App\Models\Image;
 use App\Models\ProfilePicture;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
@@ -112,12 +114,19 @@ class UserController extends Controller
 
         $file = $request->file('profilePicture');
 
-        $profilePicture = new ProfilePicture();
-        $imageName = time().'.'.$file->extension(); 
-        $profilePicture->url = $imageName;
-        $file->move(public_path('profilePictures'), $imageName);
-
+        //Delete the old profile picture
+        $oldProfilePictureName = $user->profilePicture()->getResults()->url;
+        File::delete('profilePictures/'.$oldProfilePictureName);
+        
         $user->profilePicture()->delete();
+
+        //Add the new profile picture
+        $imageName = time().'.'.$file->extension();
+
+        $profilePicture = new ProfilePicture();
+        $profilePicture->url = $imageName;
+
+        $file->move(public_path('profilePictures'), $imageName);
         $user->profilePicture()->save($profilePicture);
         
         session()->flash('message', 'Your profile was updated');
