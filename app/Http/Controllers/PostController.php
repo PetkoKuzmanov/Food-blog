@@ -9,6 +9,7 @@ use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class PostController extends Controller
 {
@@ -128,9 +129,16 @@ class PostController extends Controller
         $post->user_id = Auth::id();
         $post->save();
         
-        //Change the images
+        //Delete the old images
+        // dd($post->images()->get());
+        foreach ($post->images()->get() as $image) {
+            $oldProfilePictureName = $image->url;
+            File::delete('images/'.$oldProfilePictureName);
+        }
+
         $post->images()->delete();        
 
+        //Add the new images
         foreach ($request->file('images') as $index=>$file) {
             $image = new Image;
             $imageName = time().$index.'.'.$file->extension(); 

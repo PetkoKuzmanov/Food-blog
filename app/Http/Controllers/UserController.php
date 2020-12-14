@@ -117,7 +117,6 @@ class UserController extends Controller
         //Delete the old profile picture
         $oldProfilePictureName = $user->profilePicture()->getResults()->url;
         File::delete('profilePictures/'.$oldProfilePictureName);
-        
         $user->profilePicture()->delete();
 
         //Add the new profile picture
