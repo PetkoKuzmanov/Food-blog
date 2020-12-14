@@ -29,9 +29,12 @@ Route::get('home/users',[UserController::class, 'index'])->name('users.index')->
 
 Route::get('home/users/chefs',[UserController::class, 'chefs'])->name('users.chefs')->middleware('auth');
 
+Route::put('home/users/edit/{user}',[UserController::class, 'edit'])->name('users.edit')->middleware('auth');
+
+Route::put('home/users/update/{user}',[UserController::class, 'update'])->name('users.update')->middleware('auth');
+
 Route::get('home/users/{user}',[UserController::class, 'show'])->name('users.show')->middleware('auth');
 
-Route::get('home/users/{user}/posts',[UserController::class, 'posts'])->name('users.posts')->middleware('auth');
 
 //Posts
 Route::get('home/posts',[PostController::class, 'index'])->name('posts.index')->middleware('auth');

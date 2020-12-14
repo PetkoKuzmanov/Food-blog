@@ -30,7 +30,8 @@ class CommentController extends Controller
         $comment->post_id = $validatedData['post_id'];
         $comment->save();
 
-        return $comment;
+        $commentToReturn = Comment::where('id', $comment->id)->with('user')->get();
+        return $commentToReturn;
     }
     /**
      * Display a listing of the resource.

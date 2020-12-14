@@ -32,7 +32,7 @@
         <li>Comments:
             @if (count($post->comments) > 0)
             <ul>
-                <li v-for="comment in comments">@{{ comment.content }} <br> Posted by: <a href="{{ route('users.show' , 3) }}">@{{ comment.user.name }}</a></li>
+                <li v-for="comment in comments">@{{ comment.content }} <br> Posted by: <a href="{{ route('users.show' , 4) }}">@{{ comment.user.name }}</a></li>
             </ul>
             @else
             No comments
@@ -82,8 +82,9 @@
                         user_id: document.getElementById('user_id').innerHTML,
                     })
                     .then(response => {
-                        this.comments.push(response.data);
+                        this.comments.push(response.data[0]);
                         this.newCommentContent = '';
+                        console.log(this.comments);
                     })
                     .catch(response => {
                         console.log(response);

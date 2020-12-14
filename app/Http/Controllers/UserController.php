@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Post;
+use App\Models\Image;
+use App\Models\ProfilePicture;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -85,9 +86,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
         //
+        return view('users.edit', ['user' => $user]);
     }
 
     /**
@@ -97,9 +99,30 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
         //
+        $validatedData = $request->validate([
+            'profilePicture' => 'required',
+            'name' => 'required',
+        ]);
+
+        $user->name = $validatedData['name'];
+
+        $file = $request->file('profilePicture');
+
+        $profilePicture = new ProfilePicture();
+        $imageName = time().'.'.$file->extension(); 
+        $profilePicture->url = $imageName;
+        
+        $user->profilePicture()->save($profilePicture);
+        $file->move(public_path('profilePictures'), $imageName);
+        $user->refresh();
+        $user->save();
+        
+        // dd($user->profilePicture->url);
+        session()->flash('message', 'Your profile was updated');
+        return redirect()->route('users.index', ['user' => $user]);
     }
 
     /**

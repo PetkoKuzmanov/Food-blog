@@ -19,12 +19,11 @@ class CheckUser
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::user();
-        $role = $user->role;
 
-        if ($role == "chef") {
+        if ($user->id == $request->user->id) {
             return $next($request);
         } else {
-            return response("You can't edit or delete other chefs' posts");
+            return response("You are not authorised to do this");
         }
     }
 }
