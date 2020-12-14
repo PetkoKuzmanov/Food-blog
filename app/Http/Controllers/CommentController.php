@@ -11,10 +11,8 @@ use Illuminate\Support\Facades\Auth;
 class CommentController extends Controller
 {
     public function apiIndex(Request $request) {
+        $comments = Comment::where('post_id', $request->id)->with('user')->get();
 
-        $comments = Post::all()->find($request->id)->comments;
-
-        // $comments = Comment::all()->find($request->id)->with('user');
         return $comments;
     }
 

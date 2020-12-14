@@ -6,11 +6,11 @@
 <ul>
     <li>Title: {{ $post->title }}</li>
     <li>Content: {{ $post->content }}</li>
-    <li>Posted by: <a href="{{ route('users.show', ['user' => $post->user->id]) }}">{{ $post->user->name}}</a></li>
+    <li>Posted by: <a href="{{ route('users.show', ['user' => $post->user->id]) }}">{{ $post->user->name }}</a></li>
     <li>Tags:</li>
     <ul>
         @foreach ($post->tags as $tag)
-        <li><a href="{{ route('tags.show', ['tag' => $tag->id]) }}">{{ $tag->name}}</a></li>
+        <li><a href="{{ route('tags.show', ['tag' => $tag->id]) }}">{{ $tag->name }}</a></li>
         @endforeach
     </ul>
 
@@ -32,7 +32,7 @@
         <li>Comments:
             @if (count($post->comments) > 0)
             <ul>
-                <li v-for="comment in comments">@{{ comment.content }} <br> Posted by: <a href="{{ route('users.show', 6  ) }}">@{{ comment.user_id }}</a></li>
+                <li v-for="comment in comments">@{{ comment.content }} <br> Posted by: <a href="{{ route('users.show' , 3) }}">@{{ comment.user.name }}</a></li>
             </ul>
             @else
             No comments
@@ -72,13 +72,7 @@
             comments: [],
         },
         mounted() {
-            axios.get("{{ route ('api.comments.index') }}?id={{ $post->id }}")
-                .then(response => {
-                    this.comments = response.data;
-                })
-                .catch(response => {
-                    console.log(response);
-                })
+            this.getComments()
         },
         methods: {
             createComment: function() {
@@ -89,12 +83,20 @@
                     })
                     .then(response => {
                         this.comments.push(response.data);
-
                         this.newCommentContent = '';
                     })
                     .catch(response => {
                         console.log(response);
                     })
+            },
+            getComments: function() {
+                axios.get("{{ route ('api.comments.index') }}?id={{ $post->id }}")
+                .then(response => {
+                    this.comments = response.data;
+                })
+                .catch(response => {
+                    console.log(response);
+                })
             }
         }
     })
