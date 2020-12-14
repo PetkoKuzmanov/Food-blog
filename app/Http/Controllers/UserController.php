@@ -108,21 +108,20 @@ class UserController extends Controller
         ]);
 
         $user->name = $validatedData['name'];
+        $user->save();
 
         $file = $request->file('profilePicture');
 
         $profilePicture = new ProfilePicture();
         $imageName = time().'.'.$file->extension(); 
         $profilePicture->url = $imageName;
-        
-        $user->profilePicture()->save($profilePicture);
         $file->move(public_path('profilePictures'), $imageName);
-        $user->refresh();
-        $user->save();
+
+        $user->profilePicture()->delete();
+        $user->profilePicture()->save($profilePicture);
         
-        // dd($user->profilePicture->url);
         session()->flash('message', 'Your profile was updated');
-        return redirect()->route('users.index', ['user' => $user]);
+        return redirect()->route('users.show', ['user' => $user]);
     }
 
     /**
