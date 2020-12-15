@@ -120,7 +120,7 @@ class PostController extends Controller
             'title' => 'required|max:30',
             'content' => 'required',
             'tags' => 'required',
-            'images' => 'required',
+            'images' => 'required|mimes:jpeg,png,jpg',
         ]);
 
         //Create the post

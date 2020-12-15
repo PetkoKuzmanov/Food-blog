@@ -29,16 +29,18 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('Home', 'Home') }}
                 </a>
-                <a class="navbar-brand" href="{{ route('users.chefs') }}">
-                    {{ config('Chefs', 'Chefs') }}
-                </a>
-                <a class="navbar-brand" href="{{ route('tags.index') }}">
-                    {{ config('Tags', 'Tags') }}
-                </a>
-                @if (Auth::user() && Auth::user()->role == 'visitor')
-                    <a class="navbar-brand" href="{{ route('posts.create') }}">
-                        {{ config('Create a post', 'Create a post') }}
+                @if (Auth::user())
+                    <a class="navbar-brand" href="{{ route('users.chefs') }}">
+                        {{ config('Chefs', 'Chefs') }}
                     </a>
+                    <a class="navbar-brand" href="{{ route('tags.index') }}">
+                        {{ config('Tags', 'Tags') }}
+                    </a>
+                    @if (Auth::user()->role == 'visitor')
+                        <a class="navbar-brand" href="{{ route('posts.create') }}">
+                            {{ config('Create a post', 'Create a post') }}
+                        </a>
+                    @endif
                 @endif
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>

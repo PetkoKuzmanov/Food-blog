@@ -23,3 +23,5 @@ Route::get('comments',[CommentController::class, 'apiIndex'])->name('api.comment
 
 Route::post('comments',[CommentController::class, 'apiStore'])->name('api.comments.store');
 
+Route::delete('comments',[CommentController::class, 'apiStore'])->name('api.comments.destroy');
+

@@ -33,6 +33,16 @@ class CommentController extends Controller
         $commentToReturn = Comment::where('id', $comment->id)->with('user')->get();
         return $commentToReturn;
     }
+
+    public function apiDestroy(Request $request) {
+
+        $commentToDelete = Comment::where('id', $request->id)->get();
+        $commentToDelete->delete();
+
+        $comments = Comment::where('post_id', $request->post_id)->with('user')->get();
+
+        return $comments;
+    }
     /**
      * Display a listing of the resource.
      *
