@@ -4,12 +4,13 @@
 
 @section('content')
     <ul>
-        <li>Name: {{ $tag->name }}</li>
+        <h3>Name: {{ $tag->name }}</h3>
 
-        <li>Posts that have this tag:</li>
+        <h3>Posts with this tag:</h3>
             <ul>
                 @foreach ($tag->posts as $post)
-                    <li><a href="{{ route('posts.show', ['post' => $post->id]) }}">{{ $post->title }}</a></li>
+                    <a class="btn btn-outline-primary" href="{{ route('posts.show', ['post' => $post->id]) }}">{{ $post->title }}</a>
+                    <br>
                 @endforeach
             </ul>
     </ul>
