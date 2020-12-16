@@ -3,19 +3,17 @@
 @section('title', "Recipies")
 
 @section('content')
-<ul>
-    <div>
-        @if (session('message'))
-        <p><b>{{ session('message')}}</b></p>
-        @endif
+<div>
+    @if (session('message'))
+    <p><b>{{ session('message')}}</b></p>
+    @endif
 
-        @foreach ($posts as $post)
-        <p><a class="btn btn-outline-primary" href="{{ route('posts.show', ['post' => $post->id]) }}">{{ $post->title}}</a></p>
-        @endforeach
+    @foreach ($posts as $post)
+    <p><a class="btn btn-outline-primary" href="{{ route('posts.show', ['post' => $post->id]) }}">{{ $post->title}}</a></p>
+    @endforeach
 
-        <br>
+    <br>
 
-        {{ $posts->links() }}
-    </div>
-</ul>
+    {{ $posts->links() }}
+</div>
 @endsection

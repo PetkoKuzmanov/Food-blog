@@ -34,7 +34,7 @@
     <br>
 
     <input class="btn btn-success" type="submit" value="Submit">
-    <a class="btn btn-danger" href="{{ route('posts.index') }}">Cancel</a>
+    <a class="btn btn-danger" href="{{ route('posts.show', [ 'post' => $post]) }}">Cancel</a>
 </form>
 
 <!-- <script>

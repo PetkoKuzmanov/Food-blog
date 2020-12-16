@@ -3,15 +3,13 @@
 @section('title', "Users")
 
 @section('content')
-    <p>The users of the website:</p>
-
+<div>
     @if (session('message'))
-        <p><b>{{ session('message')}}</b></p>
+    <p><b>{{ session('message')}}</b></p>
     @endif
-    
-    <ul>
-        @foreach ($users as $user)
-            <li><a href="{{ route('users.show', ['user' => $user->id]) }}">{{ $user->name }}</a></li>
-        @endforeach
-    </ul>
+
+    @foreach ($users as $user)
+    <p><a class="btn btn-outline-primary" href="{{ route('users.show', ['user' => $user->id]) }}">{{ $user->name }}</a></p>
+    @endforeach
+</div>
 @endsection
