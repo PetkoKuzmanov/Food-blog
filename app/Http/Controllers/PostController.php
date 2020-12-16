@@ -77,7 +77,7 @@ class PostController extends Controller
         }
         
         session()->flash('message', 'Post was created');
-        return redirect()->route('posts.index');
+        return redirect()->route('posts.show', ['post' => $post]);
     }
 
     /**

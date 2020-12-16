@@ -70,7 +70,7 @@
                 <form method="POST" action="{{ route('posts.destroy', ['post' => $post->id]) }}">
                     @csrf
                     @method('DELETE')
-                    <button class="btn btn-primary" type="submit">Delete</button>
+                    <button class="btn btn-danger" type="submit">Delete</button>
                 </form>
             </div>
             @endif

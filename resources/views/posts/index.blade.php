@@ -1,25 +1,21 @@
 @extends('layouts.app')
 
-@section('title', "Posts")
+@section('title', "Recipies")
 
 @section('content')
-<div class="d-flex justify-content-center">
-    <div>
-        <h1 class="display-1">Recipies</h1>
-    </div>
+<ul>
     <div>
         @if (session('message'))
         <p><b>{{ session('message')}}</b></p>
         @endif
 
-        <ul class="list-inline">
-            @foreach ($posts as $post)
-            <li><a href="{{ route('posts.show', ['post' => $post->id]) }}">{{ $post->title}}</a></li>
-            @endforeach
-        </ul>
-    </div>
-    <div class="d-flex justify-content-center">
+        @foreach ($posts as $post)
+        <p><a class="btn btn-outline-primary" href="{{ route('posts.show', ['post' => $post->id]) }}">{{ $post->title}}</a></p>
+        @endforeach
+
+        <br>
+
         {{ $posts->links() }}
     </div>
-</div>
+</ul>
 @endsection
