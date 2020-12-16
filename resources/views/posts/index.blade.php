@@ -11,7 +11,6 @@
     @foreach ($posts as $post)
     <p><a class="btn btn-outline-primary" href="{{ route('posts.show', ['post' => $post->id]) }}">{{ $post->title}}</a></p>
     @endforeach
-
     <br>
 
     {{ $posts->links() }}

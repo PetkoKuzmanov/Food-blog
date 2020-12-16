@@ -35,14 +35,24 @@ class CommentController extends Controller
     }
 
     public function apiDestroy(Request $request) {
-
-        $commentToDelete = Comment::where('id', $request->id)->get();
+        $commentToDelete = Comment::where('id', $request->id)->get()->first();
+        
+        // dd(Comment::where('post_id', $request->post_id)->with('user')->get());
         $commentToDelete->delete();
 
         $comments = Comment::where('post_id', $request->post_id)->with('user')->get();
 
         return $comments;
     }
+
+    public function apiEdit(Request $request) {
+        
+    }
+
+    public function apiUpdate(Request $request) {
+        
+    }
+
     /**
      * Display a listing of the resource.
      *

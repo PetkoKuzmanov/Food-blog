@@ -37,15 +37,14 @@
                     Posted by: <a href="{{ route('users.show' , 3) }}">@{{ comment.user.name }}</a>
                     <br>
 
-                    <!-- <a href="#" @click="editComment">Edit</a>
-                    <a href="#" @click="deleteComment">Delete</a> -->
-
+                    <button class="btn btn-primary" type="submit" @click="editComment(40)">Edit</button>
+                    <button class="btn btn-danger" type="submit" @click="deleteComment(39)">Delete</button>
                 </p>
                 @else
                 No comments
                 @endif
                 <br>
-                
+
                 <div class="input-group mb-3">
                     <input class="input-group-text" type="text" id="input" placeholder="Add a comment..." v-model="newCommentContent" aria-describedby="button-addon2">
                     <button class="btn btn-outline-primary" @click="createComment" id="button-addon2">Comment</button>
@@ -110,19 +109,23 @@
                         console.log(response);
                     })
             },
-            // deleteComment: function() {
-            //     axios.delete("{{ route ('api.comments.destroy') }}", {
-            //             post_id: document.getElementById('post_id').innerHTML,
-            //             // id: ,
-            //         })
-            //         .then(response => {
-            //             this.comments = [];
-            //             this.comments.push(response.data[0]);
-            //         })
-            //         .catch(response => {
-            //             console.log(response);
-            //         })
-            // }
+            deleteComment: function(comment_id) {
+                axios.delete("{{ route ('api.comments.destroy') }}", {
+                        data: {
+                            post_id: document.getElementById('post_id').innerHTML,
+                            id: comment_id,
+                        }
+                    })
+                    .then(response => {
+                        this.comments = response.data;
+                    })
+                    .catch(response => {
+                        console.log(response);
+                    })
+            },
+            editComment: function(comment_id) {
+                
+            }
         }
     })
 </script>
