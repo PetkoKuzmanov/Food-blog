@@ -9,7 +9,13 @@
     @endif
 
     @foreach ($posts as $post)
-    <p><a class="btn btn-outline-primary" href="{{ route('posts.show', ['post' => $post->id]) }}">{{ $post->title}}</a></p>
+    <a class="btn btn-outline-primary" href="{{ route('posts.show', ['post' => $post->id]) }}">{{ $post->title}}</a>
+    <br>
+        @foreach ($post->images as $image)
+        <img src="{{ asset('/images/'.$image->url) }}" width="100" height="100">
+        @endforeach
+        <br>
+        <br>
     @endforeach
     <br>
 

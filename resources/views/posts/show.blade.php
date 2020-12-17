@@ -30,16 +30,26 @@
             <div id="comments">
                 <h5>Comments:</h5>
                 @if (count($post->comments) > 0)
-                <p v-for="comment in comments">
-                    @{{ comment.content }}
+                <template v-for="comment in comments">
+                    <tempalte v-if="editedComment != comment.id">@{{ comment.content }}</tempalte>
+
+                    <tempalte v-if="editedComment == comment.id">
+                        <input class="input-group-text" type="text" id="input" v-model="commentContent" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-success" @click="updateComment(comment.id)" id="button-addon2">OK</button>
+                        <button class="btn btn-outline-danger" @click="cancelEditComment()" id="button-addon2">Cancel</button>
+                    </tempalte>
                     <br>
 
-                    Posted by: <a href="{{ route('users.show' , 3) }}">@{{ comment.user.name }}</a>
+                    Posted by: <a href="#" @click="showUser(comment.user)">@{{ comment.user.name }}</a>
                     <br>
 
-                    <button class="btn btn-primary" type="submit" @click="editComment(40)">Edit</button>
-                    <button class="btn btn-danger" type="submit" @click="deleteComment(39)">Delete</button>
-                </p>
+                    <template v-if="comment.user_id == {{Auth::user()->id}}">
+                        <button class="btn btn-primary" type="submit" @click="editComment(comment.id)">Edit</button>
+                        <button class="btn btn-danger" type="submit" @click="deleteComment(comment.id)">Delete</button>
+                        <br>
+                    </template>
+                    <br>
+                </template>
                 @else
                 No comments
                 @endif
@@ -81,6 +91,7 @@
         el: '#comments',
         data: {
             comments: [],
+            editedComment: 0,
         },
         mounted() {
             this.getComments()
@@ -124,7 +135,30 @@
                     })
             },
             editComment: function(comment_id) {
-                
+                axios.put("{{ route ('api.comments.edit') }}", {
+                        content: this.commentContent,
+                        id: comment_id
+                    })
+                    .then(
+                        this.editedComment = comment_id,
+                        console.log(this.editedComment)
+                    )
+                    .catch(response => {
+                        console.log(response);
+                    })
+            },
+            cancelEditComment: function() {
+                this.editedComment = 0
+            },
+            updateComment: function(comment_id) {
+                this.cancelEditComment(),
+                console.log(comment_id)
+            },
+            showUser: function(user) {
+                this.$router.push({
+                    name: 'http://coursework.test/home/users/2'
+                })
+
             }
         }
     })
