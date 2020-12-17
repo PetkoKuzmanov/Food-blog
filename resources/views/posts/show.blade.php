@@ -44,7 +44,7 @@
                     <br>
 
                     <template v-if="comment.user_id == {{Auth::user()->id}}">
-                        <button class="btn btn-primary" type="submit" @click="editComment(comment.id)">Edit</button>
+                        <button class="btn btn-primary" type="submit" @click="editComment(comment.id, comment.content)">Edit</button>
                         <button class="btn btn-danger" type="submit" @click="deleteComment(comment.id)">Delete</button>
                         <br>
                     </template>
@@ -135,12 +135,13 @@
                         console.log(response);
                     })
             },
-            editComment: function(comment_id) {
+            editComment: function(comment_id, commentContent) {
                 this.editedComment = comment_id,
-                    console.log(this.editedComment)
+                this.commentContent = commentContent
             },
             cancelEditComment: function() {
-                this.editedComment = -1
+                this.editedComment = -1,
+                this.commentContent = ""
             },
             updateComment: function(comment_id) {
                 axios.put("{{ route ('api.comments.update') }}", {
