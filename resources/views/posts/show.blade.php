@@ -91,7 +91,8 @@
         el: '#comments',
         data: {
             comments: [],
-            editedComment: 0,
+            commentContent: "",
+            editedComment: -1,
         },
         mounted() {
             this.getComments()
@@ -135,24 +136,27 @@
                     })
             },
             editComment: function(comment_id) {
-                axios.put("{{ route ('api.comments.edit') }}", {
+                this.editedComment = comment_id,
+                    console.log(this.editedComment)
+            },
+            cancelEditComment: function() {
+                this.editedComment = -1
+            },
+            updateComment: function(comment_id) {
+                axios.put("{{ route ('api.comments.update') }}", {
                         content: this.commentContent,
-                        id: comment_id
+                        id: comment_id,
+                        post_id: document.getElementById('post_id').innerHTML,
                     })
-                    .then(
-                        this.editedComment = comment_id,
-                        console.log(this.editedComment)
+                    .then(response => {
+                        this.comments = response.data;
+                    },
+                        this.cancelEditComment(),
+                        
                     )
                     .catch(response => {
                         console.log(response);
                     })
-            },
-            cancelEditComment: function() {
-                this.editedComment = 0
-            },
-            updateComment: function(comment_id) {
-                this.cancelEditComment(),
-                console.log(comment_id)
             },
             showUser: function(user) {
                 this.$router.push({

@@ -36,8 +36,6 @@ class CommentController extends Controller
 
     public function apiDestroy(Request $request) {
         $commentToDelete = Comment::where('id', $request->id)->get()->first();
-        
-        // dd(Comment::where('post_id', $request->post_id)->with('user')->get());
         $commentToDelete->delete();
 
         $comments = Comment::where('post_id', $request->post_id)->with('user')->get();
@@ -50,7 +48,18 @@ class CommentController extends Controller
     }
 
     public function apiUpdate(Request $request) {
-        
+        $comment = Comment::where('id', $request->id)->get()->first();
+
+        $validatedData = $request->validate([
+            'content' => 'required',
+        ]);
+
+        $comment->content = $validatedData['content'];
+        $comment->save();
+
+        $comments = Comment::where('post_id', $request->post_id)->with('user')->get();
+
+        return $comments;
     }
 
     /**
