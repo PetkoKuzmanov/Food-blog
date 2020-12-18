@@ -43,10 +43,6 @@ class CommentController extends Controller
         return $comments;
     }
 
-    public function apiEdit(Request $request) {
-        
-    }
-
     public function apiUpdate(Request $request) {
         $comment = Comment::where('id', $request->id)->get()->first();
 

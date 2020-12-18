@@ -25,7 +25,5 @@ Route::post('comments',[CommentController::class, 'apiStore'])->name('api.commen
 
 Route::delete('comments',[CommentController::class, 'apiDestroy'])->name('api.comments.destroy');
 
-Route::put('comments',[CommentController::class, 'apiEdit'])->name('api.comments.edit');
-
-Route::put('comments/update',[CommentController::class, 'apiUpdate'])->name('api.comments.update');
+Route::put('comments',[CommentController::class, 'apiUpdate'])->name('api.comments.update');
 

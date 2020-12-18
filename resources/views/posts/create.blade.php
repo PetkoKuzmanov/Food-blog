@@ -29,23 +29,4 @@
     <input class="btn btn-success" type="submit" value="Submit" class="btn btn-primary">
     <a class="btn btn-danger" href="{{ route('posts.index') }}">Cancel</a>
 </form>
-
-
-<!-- <script>
-    new Vue({
-        el: '#tags-select',
-        data: {
-            items: [],
-            item: ['<select name="tags"> </select>'],
-        },
-        created() {
-            this.items.push(this.item);
-        },
-        methods: {
-            add() {
-                this.items.push(this.item);
-            }
-        }
-    })
-</script> -->
 @endsection

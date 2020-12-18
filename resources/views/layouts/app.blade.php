@@ -36,6 +36,9 @@
                     <a class="navbar-brand" href="{{ route('tags.index') }}">
                         {{ config('Tags', 'Tags') }}
                     </a>
+                    <a class="navbar-brand" href="{{ route('coronavirus.show') }}">
+                        {{ config('COVID-19', 'COVID-19') }}
+                    </a>
                     @if (Auth::user()->role == 'visitor')
                         <a class="navbar-brand" href="{{ route('posts.create') }}">
                             {{ config('Create a post', 'Create a post') }}

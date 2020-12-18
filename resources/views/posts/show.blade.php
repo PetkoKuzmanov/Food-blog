@@ -40,12 +40,12 @@
                     </tempalte>
                     <br>
 
-                    Posted by: <a href="#" @click="showUser(comment.user)">@{{ comment.user.name }}</a>
+                    Posted by: <a href="#" @click="showUser(comment.user.id)">@{{ comment.user.name }}</a>
                     <br>
 
                     <template v-if="comment.user_id == {{Auth::user()->id}}">
-                        <button class="btn btn-primary" type="submit" @click="editComment(comment.id, comment.content)">Edit</button>
-                        <button class="btn btn-danger" type="submit" @click="deleteComment(comment.id)">Delete</button>
+                        <button class="btn btn-outline-primary" type="submit" @click="editComment(comment.id, comment.content)">Edit</button>
+                        <button class="btn btn-outline-danger" type="submit" @click="deleteComment(comment.id)">Delete</button>
                         <br>
                     </template>
                     <br>
@@ -159,11 +159,8 @@
                         console.log(response);
                     })
             },
-            showUser: function(user) {
-                this.$router.push({
-                    name: 'http://coursework.test/home/users/2'
-                })
-
+            showUser: function(user_id) {
+                window.location.href = "http://coursework.test/home/users/" + user_id;
             }
         }
     })

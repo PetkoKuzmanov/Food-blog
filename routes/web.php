@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\CoronavirusController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,3 +63,7 @@ Route::get('home/tags/{tag}',[TagController::class, 'show'])->name('tags.show')-
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('auth');
+
+
+//COVID-19
+Route::get('home/coronavirus',[CoronavirusController::class, 'show'])->name('coronavirus.show')->middleware('auth');
