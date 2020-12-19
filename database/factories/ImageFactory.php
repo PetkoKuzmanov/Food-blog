@@ -25,7 +25,7 @@ class ImageFactory extends Factory
         return [
             //
             'url' => $this->faker->image($dir = '/tmp', $width = 640, $height = 480),
-            'post_id' => Post::inRandomOrder()->first()->id,
+            // Post::inRandomOrder()->images()->save($this->model),
         ];
     }
 }

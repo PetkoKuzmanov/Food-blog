@@ -13,7 +13,7 @@ class Post extends Model
 
     public function images()
     {
-        return $this->hasMany('App\Models\Image');
+        return $this->morphMany('App\Models\Image', 'image');
     }
 
     public function ingredients()
@@ -36,8 +36,8 @@ class Post extends Model
         return $this->hasMany('App\Models\Comment');
     }
 
-    public function likes()
+    public function nutritionalInfo()
     {
-        return $this->belongsToMany('App\Models\User');
+        return $this->hasOne('App\Models\NutritionalInfo');
     }
 }

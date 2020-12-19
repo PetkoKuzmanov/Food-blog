@@ -5,14 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProfilePicture extends Model
+class NutritionalInfo extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['url'];
-
-    public function user()
+    public function post()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\Models\Post');
     }
 }

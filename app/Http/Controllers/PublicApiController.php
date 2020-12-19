@@ -9,10 +9,12 @@ class PublicApiController extends Controller
 {
     public function fetchCoronavirusData()
     {
-        $dailyCasesResult = Http::get('https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=overview&structure={%22date%22:%22date%22,%22dateData%22:%22' . 'newCasesByPublishDate' . '%22}')['data'];
+        $url = 'https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=overview&structure={%22date%22:%22date%22,%22dateData%22:%22';
+            
+        $dailyCasesResult = Http::get($url . 'newCasesByPublishDate' . '%22}')['data'];
         $dailyCases = $dailyCasesResult[0];
 
-        $weeklyCasesResult = Http::get('https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=overview&structure={%22date%22:%22date%22,%22dateData%22:%22' . 'newOnsDeathsByRegistrationDate' . '%22}')['data'];
+        $weeklyCasesResult = Http::get($url . 'newOnsDeathsByRegistrationDate' . '%22}')['data'];
         $weeklyDeaths = $weeklyCasesResult[0];
 
         $coronavirusController = new CoronavirusController($dailyCases, $weeklyDeaths);

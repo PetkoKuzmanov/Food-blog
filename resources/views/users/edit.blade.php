@@ -12,14 +12,14 @@
     <br>
 
     <h1>Profile picture:</h1>
-    @if ($user->profilePicture()->exists())
-    <img alt="Profile picture" src="{{ asset('/profilePictures/'.$user->profilePicture->url) }}" width="200" height="200">
+    @if ($user->image()->exists())
+    <img alt="Profile picture" src="{{ asset('/profilePictures/'.$user->image->url) }}" width="200" height="200">
     @else
     <img alt="Default profile picture" src="{{ asset('/profilePictures/defaultProfilePicture.jpg') }}" width="200" height="200">
     @endif
 
     <div class="input-group mb-3">
-        <input type="file" name="profilePicture" class="form-control" aria-describedby="inputGroupFileAddon03">
+        <input type="file" name="image" class="form-control" aria-describedby="inputGroupFileAddon03">
     </div>
 
     <input type="submit" value="Submit" class="btn btn-success">

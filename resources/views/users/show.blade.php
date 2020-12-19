@@ -7,8 +7,8 @@
 <ul>
     <h1>{{ $user->name }}</h1>
 
-    @if ($user->profilePicture()->exists())
-    <img alt="Profile picture" src="{{ asset('/profilePictures/'.$user->profilePicture->url) }}" width="200" height="200">
+    @if ($user->image()->exists())
+    <img alt="Profile picture" src="{{ asset('/profilePictures/'.$user->image->url) }}" width="200" height="200">
     @else
     <img alt="Default profile picture" src="{{ asset('/profilePictures/defaultProfilePicture.jpg') }}" width="200" height="200">
     @endif

@@ -17,10 +17,11 @@ class CreateImagesTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->string('url');
+            $table->morphs('image');
 
-            $table->unsignedBigInteger('post_id');
-            $table->foreign('post_id')->references('id')->on('posts')
-                ->onDelete('cascade')->onUpdate('cascade');
+            // $table->unsignedBigInteger('post_id');
+            // $table->foreign('post_id')->references('id')->on('posts')
+            //     ->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

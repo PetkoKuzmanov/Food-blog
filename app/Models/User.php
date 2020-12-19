@@ -60,8 +60,8 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Models\Post');
     }
 
-    public function profilePicture()
+    public function image()
     {
-        return $this->hasOne('App\Models\ProfilePicture');
+        return $this->morphOne('App\Models\Image', 'image');
     }
 }
