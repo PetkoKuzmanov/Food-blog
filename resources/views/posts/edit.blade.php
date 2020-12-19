@@ -24,7 +24,7 @@
     <h2>Images:</h2>
     <ul>
         @foreach ($post->images as $image)
-        <img src="{{ asset('/images/'.$image->url) }}" width="200" height="200">
+        <img alt="Post image" src="{{ asset('/images/'.$image->url) }}" width="200" height="200">
         <!-- <input type="text" name="images[]" class="form-control" value="{{ asset('/images/'.$image->url) }}" hidden> -->
         @endforeach
     </ul>

@@ -13,9 +13,9 @@
 
     <h1>Profile picture:</h1>
     @if ($user->profilePicture()->exists())
-    <img src="{{ asset('/profilePictures/'.$user->profilePicture->url) }}" width="200" height="200">
+    <img alt="Profile picture" src="{{ asset('/profilePictures/'.$user->profilePicture->url) }}" width="200" height="200">
     @else
-    <img src="{{ asset('/profilePictures/defaultProfilePicture.jpg') }}" width="200" height="200">
+    <img alt="Default profile picture" src="{{ asset('/profilePictures/defaultProfilePicture.jpg') }}" width="200" height="200">
     @endif
 
     <div class="input-group mb-3">

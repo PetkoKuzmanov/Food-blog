@@ -12,7 +12,7 @@
     <a class="btn btn-outline-primary" href="{{ route('posts.show', ['post' => $post->id]) }}">{{ $post->title}}</a>
     <br>
         @foreach ($post->images as $image)
-        <img src="{{ asset('/images/'.$image->url) }}" width="100" height="100">
+        <img alt="Post image" src="{{ asset('/images/'.$image->url) }}" width="100" height="100">
         @endforeach
         <br>
         <br>

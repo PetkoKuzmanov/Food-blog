@@ -14,7 +14,7 @@
             <h3>Posted by: <a href="{{ route('users.show', ['user' => $post->user->id]) }}">{{ $post->user->name }}</a></h3>
 
             @foreach ($post->images as $image)
-            <img src="{{ asset('/images/'.$image->url) }}" width="200" height="200">
+            <img alt="Post image" src="{{ asset('/images/'.$image->url) }}" width="200" height="200">
             @endforeach
 
             <h4 class="text-justify">{{ $post->content }}</h4>
@@ -153,7 +153,6 @@
                         this.comments = response.data;
                     },
                         this.cancelEditComment(),
-                        
                     )
                     .catch(response => {
                         console.log(response);
