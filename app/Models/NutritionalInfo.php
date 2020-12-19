@@ -9,6 +9,8 @@ class NutritionalInfo extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['servingSize', 'calories'];
+
     public function post()
     {
         return $this->belongsTo('App\Models\Post');

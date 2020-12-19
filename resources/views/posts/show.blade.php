@@ -17,15 +17,13 @@
             <img alt="Post image" src="{{ asset('/images/'.$image->url) }}" width="200" height="200">
             @endforeach
 
+            @if ($post->nutritionalInfo()->exists())
+            <h4 class="text-justify">Serving size: {{ $post->nutritionalInfo->servingSize }} </h4>
+            <h4 class="text-justify">Calories: {{ $post->nutritionalInfo->calories }}</h4>
+            @endif
+
             <h4 class="text-justify">{{ $post->content }}</h4>
             <br>
-
-            <!-- <ul>
-    Ingredients:
-        @foreach ($post->ingredients as $ingredient)
-        <li>{{ $ingredient->name }} {{ $ingredient->amount }}{{ $ingredient->measurement }}</li>
-        @endforeach
-    </ul> -->
 
             <div id="comments">
                 <h5>Comments:</h5>
@@ -137,11 +135,11 @@
             },
             editComment: function(comment_id, commentContent) {
                 this.editedComment = comment_id,
-                this.commentContent = commentContent
+                    this.commentContent = commentContent
             },
             cancelEditComment: function() {
                 this.editedComment = -1,
-                this.commentContent = ""
+                    this.commentContent = ""
             },
             updateComment: function(comment_id) {
                 axios.put("{{ route ('api.comments.update') }}", {
@@ -150,8 +148,8 @@
                         post_id: document.getElementById('post_id').innerHTML,
                     })
                     .then(response => {
-                        this.comments = response.data;
-                    },
+                            this.comments = response.data;
+                        },
                         this.cancelEditComment(),
                     )
                     .catch(response => {

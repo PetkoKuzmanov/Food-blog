@@ -24,11 +24,5 @@ class PostTableSeeder extends Seeder
             ); 
         });
 
-        Post::get()->each(function ($post) { 
-            $post->likes()->attach(
-                User::get()->random(rand(0, 2))->pluck('id')->toArray()
-            ); 
-        });
-
     }
 }

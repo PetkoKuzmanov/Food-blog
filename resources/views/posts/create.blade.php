@@ -21,6 +21,13 @@
         </select>
     </div>
     <br>
+
+    <h2 class="form-label">Nutritional info: </h2>
+    <h2>Serving size:<input class="input-group-text" type="text" name="servingSize" value="{{ old('servingSize') }}" class="form-control"></h2>
+    <h2>Calories:<input class="input-group-text" type="text" name="calories" value="{{ old('calories') }}" class="form-control"></h2>
+    
+    <br>
+
     <h2>Images:</h2>
     <div class="input-group mb-3">
         <input type="file" name="images[]" class="form-control" aria-describedby="inputGroupFileAddon03" multiple>

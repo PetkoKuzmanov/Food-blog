@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Tag;
 use App\Models\User;
+use App\Models\NutritionalInfo;
 use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -51,14 +52,18 @@ class PostController extends Controller
             'content' => 'required',
             'tags' => 'required',
             'images' => 'required',
+            'servingSize' => 'required',
+            'calories' => 'required|integer',
         ]);
 
+        
         //Create the post
         $post = new Post;
         $post->title = $validatedData['title'];
         $post->content = $validatedData['content'];
         $post->user_id = Auth::id();
         $post->save();
+
         
         //Add the images
         foreach ($request->file('images') as $index=>$file) {
@@ -76,6 +81,13 @@ class PostController extends Controller
             $tag->posts()->attach($post);
         }
         
+        //Add the nutritional info
+        $nutritionalInfo = new NutritionalInfo;
+        $nutritionalInfo->servingSize = $post->id;
+        $nutritionalInfo->servingSize = $validatedData['servingSize'];
+        $nutritionalInfo->calories = $validatedData['calories'];
+        $post->nutritionalInfo()->save($nutritionalInfo);
+
         session()->flash('message', 'Post was created');
         return redirect()->route('posts.show', ['post' => $post]);
     }

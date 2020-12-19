@@ -16,8 +16,12 @@ class CreateNutritionalInfosTable extends Migration
         Schema::create('nutritional_infos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
+            $table->char('servingSize', 20);
+            $table->integer('calories', 5);
 
-
+            $table->unsignedBigInteger('post_id');
+            $table->foreign('post_id')->references('id')->on('posts')
+                ->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

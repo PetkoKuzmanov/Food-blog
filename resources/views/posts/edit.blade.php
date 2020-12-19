@@ -21,6 +21,13 @@
         </select>
     </div>
     <br>
+
+    <h2 class="form-label">Nutritional info: </h2>
+    <h2>Serving size:<input class="input-group-text" type="text" name="servingSize" value="{{ $post->nutritionalInfo->servingSize }}" class="form-control"></h2>
+    <h2>Calories:<input class="input-group-text" type="text" name="calories" value="{{ $post->nutritionalInfo->calories }}" class="form-control"></h2>
+
+    <br>
+
     <h2>Images:</h2>
     <ul>
         @foreach ($post->images as $image)
