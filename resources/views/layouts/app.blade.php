@@ -36,7 +36,7 @@
                     <a class="navbar-brand" href="{{ route('tags.index') }}">
                         {{ config('Tags', 'Tags') }}
                     </a>
-                    <a class="navbar-brand" href="{{ route('coronavirus.show') }}">
+                    <a class="navbar-brand" href="{{ route('coronavirus.fetch') }}">
                         {{ config('COVID-19', 'COVID-19') }}
                     </a>
                     @if (Auth::user()->role == 'visitor')
