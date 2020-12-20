@@ -5,32 +5,44 @@
 @section('content')
 <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data" action="/details">
     @csrf
-    <h1 class="form-label">Title: <input class="input-group-text" type="text" name="title" value="{{ old('title') }} " class="form-control"></h1>
+    <label class="h1">Title:</label>
+    <div class="input-group">
+        <textarea type="text" name="title" class="form-control" aria-describedby="title-textarea">{{ old('title') }}</textarea>
+    </div>
 
-    <h2 class="form-label">Content: <input class="input-group-text" type="text" name="content" value="{{ old('content') }}" class="form-control"></h2>
+    <label class="h2">Content:</label>
+    <div class="input-group">
+        <textarea style="height:300px;" type="text" name="content"class="form-control" aria-describedby="content-textarea">{{ old('content') }}</textarea>
+    </div>
 
-    <div id="tags-select">
-        <h2 class="form-label">Tags: </h2>
-        <select name="tags[]" v-for="item in items" multiple size="5">
-            @foreach ($tags as $tag)
-            <option value="{{ $tag->id }}" @if ($tag->id == old('tag_id'))
-                selected="selected"
-                @endif
-                >{{ $tag->name }}</option>
-            @endforeach
-        </select>
+    <label class="h2">Tags:</label>
+    <br>
+    <select name="tags[]" multiple size="5">
+        @foreach ($tags as $tag)
+        <option value="{{ $tag->id }}" @if ($tag->id == old('tag_id'))
+            selected="selected"
+            @endif
+            >{{ $tag->name }}</option>
+        @endforeach
+    </select>
+    <br>
+
+    <label class="h2">Nutritional info:</label>
+    <br>
+    <label class="h2">Serving size:</label>
+    <div class="input-group">
+        <textarea type="text" name="servingSize" class="form-control" aria-describedby="serving-size-textarea">{{ old('servingSize') }}</textarea>
+    </div>
+    <label class="h2">Calories:</label>
+    <div class="input-group">
+        <textarea type="text" name="calories" class="form-control" aria-describedby="calories-textarea">{{ old('calories') }}</textarea>
     </div>
     <br>
 
-    <h2 class="form-label">Nutritional info: </h2>
-    <h2>Serving size:<input class="input-group-text" type="text" name="servingSize" value="{{ old('servingSize') }}" class="form-control"></h2>
-    <h2>Calories:<input class="input-group-text" type="text" name="calories" value="{{ old('calories') }}" class="form-control"></h2>
-    
-    <br>
-
-    <h2>Images:</h2>
-    <div class="input-group mb-3">
-        <input type="file" name="images[]" class="form-control" aria-describedby="inputGroupFileAddon03" multiple>
+    <label class="h2">Images:</label>
+    <div class="custom-file mb-3">
+        <input type="file" class="custom-file-input" id="inputGroupFile01" name="images[]" multiple aria-describedby="images-input">
+        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
     </div>
 
     <input class="btn btn-success" type="submit" value="Submit" class="btn btn-primary">

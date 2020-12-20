@@ -32,7 +32,7 @@
                     <tempalte v-if="editedComment != comment.id">@{{ comment.content }}</tempalte>
 
                     <tempalte v-if="editedComment == comment.id">
-                        <input class="input-group-text" type="text" id="input" v-model="commentContent" aria-describedby="button-addon2">
+                        <input class="form-control" type="text" id="input" v-model="commentContent" aria-describedby="button-addon2">
                         <button class="btn btn-outline-success" @click="updateComment(comment.id)" id="button-addon2">OK</button>
                         <button class="btn btn-outline-danger" @click="cancelEditComment()" id="button-addon2">Cancel</button>
                     </tempalte>
@@ -54,7 +54,7 @@
                 <br>
 
                 <div class="input-group mb-3">
-                    <input class="input-group-text" type="text" id="input" placeholder="Add a comment..." v-model="newCommentContent" aria-describedby="button-addon2">
+                    <input class="form-control" type="text" id="input" placeholder="Add a comment..." v-model="newCommentContent" aria-describedby="button-addon2">
                     <button class="btn btn-outline-primary" @click="createComment" id="button-addon2">Comment</button>
                 </div>
             </div>

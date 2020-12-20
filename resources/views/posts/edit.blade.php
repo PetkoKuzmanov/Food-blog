@@ -6,11 +6,18 @@
 <form method="POST" action="{{ route('posts.update', [ 'post' => $post]) }}" enctype="multipart/form-data" action="/details">
     @csrf
     @method('PUT')
-    <h1>Title: <input class="input-group-text" type="text" name="title" value="{{ $post->title }}"></h1>
-    <h2>Content: <input class="input-group-text" type="text" name="content" value="{{ $post->content }}"></h2>
+    <label class="h1">Title:</label>
+    <div class="input-group">
+        <textarea type="text" name="title" class="form-control" aria-describedby="title-textarea">{{ $post->title }}</textarea>
+    </div>
 
-    <div id="tags-select">
-        <h2>Tags:</h2>
+    <label class="h2">Content:</label>
+    <div class="input-group">
+        <textarea style="height:300px;" type="text" name="content"class="form-control" aria-describedby="content-textarea">{{ $post->content }}</textarea>
+    </div>
+
+    <label class="h2">Tags:</label>
+    <br>
         <select size="5" name="tags[]" v-for="item in items" multiple>
             @foreach ($tags as $tag)
             <option value="{{ $tag->id }}" @if ($post->tags->contains($tag))
@@ -19,13 +26,19 @@
                 >{{ $tag->name }}</option>
             @endforeach
         </select>
-    </div>
     <br>
 
-    <h2 class="form-label">Nutritional info: </h2>
-    <h2>Serving size:<input class="input-group-text" type="text" name="servingSize" value="{{ $post->nutritionalInfo->servingSize }}" class="form-control"></h2>
-    <h2>Calories:<input class="input-group-text" type="text" name="calories" value="{{ $post->nutritionalInfo->calories }}" class="form-control"></h2>
-
+    <label class="h2">Nutritional info:</label>
+    <br>
+    <label class="h2">Serving size:</label>
+    <div class="input-group">
+        <textarea type="text" name="servingSize" class="form-control" aria-describedby="serving-size-textarea">{{ $post->nutritionalInfo->servingSize }}</textarea>
+    </div>
+    <label class="h2">Calories:</label>
+    <div class="input-group">
+        <textarea type="text" name="calories" class="form-control" aria-describedby="calories-textarea">{{ $post->nutritionalInfo->calories }}</textarea>
+    </div>
+    
     <br>
 
     <h2>Images:</h2>
@@ -35,8 +48,9 @@
         <!-- <input type="text" name="images[]" class="form-control" value="{{ asset('/images/'.$image->url) }}" hidden> -->
         @endforeach
     </ul>
-    <div class="input-group">
-        <input class="form-control" type="file" name="images[]" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" multiple>
+    <div class="custom-file mb-3">
+        <input type="file" class="custom-file-input" id="inputGroupFile01" name="images[]" multiple aria-describedby="images-input">
+        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
     </div>
     <br>
 

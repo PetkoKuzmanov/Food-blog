@@ -56,7 +56,6 @@ class PostController extends Controller
             'calories' => 'required|integer',
         ]);
 
-        
         //Create the post
         $post = new Post;
         $post->title = $validatedData['title'];
@@ -64,7 +63,6 @@ class PostController extends Controller
         $post->user_id = Auth::id();
         $post->save();
 
-        
         //Add the images
         foreach ($request->file('images') as $index=>$file) {
             $image = new Image;

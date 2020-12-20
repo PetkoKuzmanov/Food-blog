@@ -67,10 +67,4 @@ Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware(
 
 
 //COVID-19
-// Route::get('home/coronavirus/show', [CoronavirusController::class, 'show'])->name('coronavirus.show')->middleware('auth');
-
-// Route::get('home/coronavirus/fetch', function (PublicApiController $publicApiController) {
-//     die(get_class($publicApiController->fetchCoronavirusData()));
-// })->name('coronavirus.fetch')->middleware('auth');
-
 Route::get('home/coronavirus', [PublicApiController::class, 'fetchCoronavirusData'])->name('coronavirus.fetch')->middleware('auth');

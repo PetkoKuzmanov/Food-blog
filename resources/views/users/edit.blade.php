@@ -8,8 +8,10 @@
     @csrf
     @method('PUT')
 
-    <h1>Name: <input class="input-group-text" type="text" name="name" value="{{ $user->name }}"></h1>
-    <br>
+    <label class="h1">Name:</label>
+    <div class="input-group">
+        <textarea type="text" name="name" class="form-control" aria-describedby="title-textarea">{{ $user->name }}</textarea>
+    </div>
 
     <h1>Profile picture:</h1>
     @if ($user->image()->exists())
@@ -18,8 +20,9 @@
     <img alt="Default profile picture" src="{{ asset('/profilePictures/defaultProfilePicture.jpg') }}" width="200" height="200">
     @endif
 
-    <div class="input-group mb-3">
-        <input type="file" name="image" class="form-control" aria-describedby="inputGroupFileAddon03">
+    <div class="custom-file mb-3">
+        <input type="file" class="custom-file-input" id="inputGroupFile01" name="image" multiple aria-describedby="images-input">
+        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
     </div>
 
     <input type="submit" value="Submit" class="btn btn-success">
