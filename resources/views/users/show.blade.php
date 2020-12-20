@@ -32,7 +32,7 @@
     <form method="POST" action="{{ route('users.edit', ['user' => $user]) }}">
         @csrf
         @method('PUT')
-        <button class="btn btn-primary" type="submit">EDIT PROFILE</button>
+        <button class="btn btn-primary" type="submit">Edit profile</button>
     </form>
     @endif
 </ul>

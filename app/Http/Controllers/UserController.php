@@ -67,7 +67,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        
     }
 
     /**
@@ -105,7 +104,7 @@ class UserController extends Controller
     {
         //
         $validatedData = $request->validate([
-            'image' => 'required',
+            'image' => 'nullable',
             'name' => 'required',
         ]);
 
@@ -113,23 +112,23 @@ class UserController extends Controller
         $user->save();
 
         $file = $request->file('image');
+        if ($file != null) {
+            //Delete the old profile picture if it exists
+            if ($user->image()->exists()) {
+                $oldImageName = $user->image()->getResults()->url;
+                File::delete('profilePictures/' . $oldImageName);
+                $user->image()->delete();
+            }
 
-        //Delete the old profile picture if it exists
-        if ($user->image()->exists()) {
-            $oldImageName = $user->image()->getResults()->url;
-            File::delete('profilePictures/'.$oldImageName);
-            $user->image()->delete();
+            //Add the new profile picture
+            $imageName = time() . '.' . $file->extension();
+
+            $image = new Image();
+            $image->url = $imageName;
+
+            $file->move(public_path('profilePictures'), $imageName);
+            $user->image()->save($image);
         }
-
-        //Add the new profile picture
-        $imageName = time().'.'.$file->extension();
-
-        $image = new Image();
-        $image->url = $imageName;
-
-        $file->move(public_path('profilePictures'), $imageName);
-        $user->image()->save($image);
-        
         session()->flash('message', 'Your profile was updated');
         return redirect()->route('users.show', ['user' => $user]);
     }

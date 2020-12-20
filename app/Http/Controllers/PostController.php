@@ -23,7 +23,7 @@ class PostController extends Controller
     {
         //
         $posts = Post::paginate(10);
-        
+
         return view('posts.index', ['posts' => $posts]);
     }
 
@@ -64,9 +64,9 @@ class PostController extends Controller
         $post->save();
 
         //Add the images
-        foreach ($request->file('images') as $index=>$file) {
+        foreach ($request->file('images') as $index => $file) {
             $image = new Image;
-            $imageName = time().$index.'.'.$file->extension(); 
+            $imageName = time() . $index . '.' . $file->extension();
             $image->url = $imageName;
 
             $post->images()->save($image);
@@ -78,7 +78,7 @@ class PostController extends Controller
             $tag = Tag::All()->find($tag_id);
             $tag->posts()->attach($post);
         }
-        
+
         //Add the nutritional info
         $nutritionalInfo = new NutritionalInfo;
         $nutritionalInfo->servingSize = $post->id;
@@ -130,7 +130,7 @@ class PostController extends Controller
             'title' => 'required|max:30',
             'content' => 'required',
             'tags' => 'required',
-            'images' => 'required|mimes:jpeg,png,jpg',
+            'images' => 'nullable',
         ]);
 
         //Create the post
@@ -138,23 +138,25 @@ class PostController extends Controller
         $post->content = $validatedData['content'];
         $post->user_id = Auth::id();
         $post->save();
-        
-        //Delete the old images
-        foreach ($post->images()->get() as $image) {
-            $oldProfilePictureName = $image->url;
-            File::delete('images/'.$oldProfilePictureName);
-        }
 
-        $post->images()->delete();        
+        if ($request->file('images') != null) {
+            //Delete the old images
+            foreach ($post->images()->get() as $image) {
+                $oldProfilePictureName = $image->url;
+                File::delete('images/' . $oldProfilePictureName);
+            }
 
-        //Add the new images
-        foreach ($request->file('images') as $index=>$file) {
-            $image = new Image;
-            $imageName = time().$index.'.'.$file->extension(); 
-            $image->url = $imageName;
+            $post->images()->delete();
 
-            $post->images()->save($image);
-            $file->move(public_path('images'), $imageName);
+            //Add the new images
+            foreach ($request->file('images') as $index => $file) {
+                $image = new Image;
+                $imageName = time() . $index . '.' . $file->extension();
+                $image->url = $imageName;
+
+                $post->images()->save($image);
+                $file->move(public_path('images'), $imageName);
+            }
         }
 
         //Change the tags
@@ -163,7 +165,7 @@ class PostController extends Controller
             $tag = Tag::All()->find($tag_id);
             $tag->posts()->attach($post);
         }
-        
+
         session()->flash('message', 'Post was updated');
         return redirect()->route('posts.show', ['post' => $post]);
     }
@@ -179,7 +181,7 @@ class PostController extends Controller
         //
         foreach ($post->images()->get() as $image) {
             $oldProfilePictureName = $image->url;
-            File::delete('images/'.$oldProfilePictureName);
+            File::delete('images/' . $oldProfilePictureName);
         }
         $post->delete();
         return redirect()->route('posts.index')->with('message', 'Post was deleted');
