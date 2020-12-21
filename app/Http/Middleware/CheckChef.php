@@ -21,7 +21,7 @@ class CheckChef
         $user = Auth::user();
         $role = $user->role;
 
-        if ($role == "visitor") {
+        if ($role == "chef") {
             return $next($request);
         } else {
             return response("Only chefs are authorised to do this");

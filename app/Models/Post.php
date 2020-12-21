@@ -16,11 +16,6 @@ class Post extends Model
         return $this->morphMany('App\Models\Image', 'image');
     }
 
-    public function ingredients()
-    {
-        return $this->hasMany('App\Models\Ingredient');
-    }
-
     public function tags()
     {
         return $this->belongsToMany('App\Models\Tag');

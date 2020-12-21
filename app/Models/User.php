@@ -55,11 +55,6 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Comment');
     }
 
-    public function likes()
-    {
-        return $this->belongsToMany('App\Models\Post');
-    }
-
     public function image()
     {
         return $this->morphOne('App\Models\Image', 'image');

@@ -41,9 +41,9 @@ Route::get('home/users/{user}', [UserController::class, 'show'])->name('users.sh
 //Posts
 Route::get('home/posts', [PostController::class, 'index'])->name('posts.index')->middleware('auth');
 
-Route::get('posts/create', [PostController::class, 'create'])->name('posts.create')->middleware('chef');
+Route::get('home/posts/create', [PostController::class, 'create'])->name('posts.create')->middleware('chef');
 
-Route::post('posts', [PostController::class, 'store'])->name('posts.store')->middleware('chef');
+Route::post('home/posts', [PostController::class, 'store'])->name('posts.store')->middleware('chef');
 
 Route::put('home/posts/edit/{post}', [PostController::class, 'edit'])->name('posts.edit')->middleware('auth');
 
