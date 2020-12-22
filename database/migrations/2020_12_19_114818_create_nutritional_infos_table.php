@@ -17,7 +17,7 @@ class CreateNutritionalInfosTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->char('servingSize', 20);
-            $table->integer('calories', 5);
+            $table->integer('calories');
 
             $table->unsignedBigInteger('post_id');
             $table->foreign('post_id')->references('id')->on('posts')

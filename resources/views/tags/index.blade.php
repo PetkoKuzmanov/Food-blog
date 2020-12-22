@@ -9,8 +9,7 @@
     @endif
 
     @foreach ($tags as $tag)
-    <a class="btn btn-outline-primary" href="{{ route('tags.show', ['tag' => $tag->id]) }}">{{ $tag->name }}</a>
-    <br>
+    <p><a class="btn btn-outline-primary" href="{{ route('tags.show', ['tag' => $tag->id]) }}">{{ $tag->name }}</a></p>
     @endforeach
     <br>
     

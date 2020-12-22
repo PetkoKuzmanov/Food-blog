@@ -16,12 +16,15 @@
             @foreach ($post->images as $image)
             <img alt="Post image" src="{{ asset('/images/'.$image->url) }}" width="200" height="200">
             @endforeach
+            <br>
+            <br>
 
             @if ($post->nutritionalInfo()->exists())
             <h4 class="text-justify">Serving size: {{ $post->nutritionalInfo->servingSize }} </h4>
             <h4 class="text-justify">Calories: {{ $post->nutritionalInfo->calories }}</h4>
             @endif
-
+            <br>
+            
             <h4 class="text-justify">{{ $post->content }}</h4>
             <br>
 

@@ -48,7 +48,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'title' => 'required|max:30',
+            'title' => 'required|max:150',
             'content' => 'required',
             'tags' => 'required',
             'images' => 'required',
@@ -127,7 +127,7 @@ class PostController extends Controller
     {
         //
         $validatedData = $request->validate([
-            'title' => 'required|max:30',
+            'title' => 'required|max:150',
             'content' => 'required',
             'tags' => 'required',
             'images' => 'nullable',

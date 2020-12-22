@@ -16,8 +16,8 @@
 
     <h3>Role: {{ $user->role }}</h3>
 
+    @if ($user->role == 'chef')
     <h3>Posts:</h3>
-
     @if (count($user->posts) > 0)
     <ul>
         @foreach ($user->posts as $post)
@@ -26,6 +26,7 @@
     </ul>
     @else
     No Posts
+    @endif
     @endif
 
     @if (Auth::user() && Auth::user()->id == $user->id)
