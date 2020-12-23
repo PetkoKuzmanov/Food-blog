@@ -131,6 +131,8 @@ class PostController extends Controller
             'content' => 'required',
             'tags' => 'required',
             'images' => 'nullable',
+            'servingSize' => 'required',
+            'calories' => 'required|integer',
         ]);
 
         //Create the post
@@ -165,6 +167,14 @@ class PostController extends Controller
             $tag = Tag::All()->find($tag_id);
             $tag->posts()->attach($post);
         }
+
+        //Change the nutritional info
+        $post->nutritionalInfo()->delete();
+        $nutritionalInfo = new NutritionalInfo;
+        $nutritionalInfo->servingSize = $post->id;
+        $nutritionalInfo->servingSize = $validatedData['servingSize'];
+        $nutritionalInfo->calories = $validatedData['calories'];
+        $post->nutritionalInfo()->save($nutritionalInfo);
 
         session()->flash('message', 'Post was updated');
         return redirect()->route('posts.show', ['post' => $post]);
